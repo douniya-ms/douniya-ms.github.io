@@ -17,7 +17,14 @@ const config = defineConfig({
       strategy: ['url', 'baseLocale'],
     }),
     tailwindcss(),
-    tanstackStart(),
+    tanstackStart({
+      prerender: {
+        enabled: true,
+        crawlLinks: true,
+        failOnError: true,
+      },
+      pages: [{ path: '/' }, { path: '/fr' }],
+    }),
     viteReact(),
   ],
 })
