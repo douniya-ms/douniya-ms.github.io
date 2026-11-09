@@ -44,6 +44,23 @@
   body,
   #root {
     min-height: 100%;
+    width: 100%;
+    margin: 0;
+  }
+
+  .site-shell,
+  main,
+  .about-page {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .about-nameplate h1 {
+    white-space: normal;
+  }
+
+  .about-nameplate h1 span {
+    display: block;
   }
 }
 /* 1. Add Squash & Stretch Animation Utility */
@@ -305,7 +322,7 @@
   height: 100dvh;
   overflow: hidden;
   --mobile-name-top: 52px;
-  --mobile-name-h: 210px;
+  --mobile-name-h: 140px;
   --mobile-content-top: calc(var(--mobile-name-top) + var(--mobile-name-h));
 }
 
@@ -351,6 +368,14 @@
     white-space: nowrap;
   }
 
+  .about-nameplate h1 span {
+    display: inline;
+  }
+
+  .about-nameplate h1 span + span::before {
+    content: ' ';
+  }
+
   .about-nameplate > p {
     margin-top: 1rem;
   }
@@ -393,6 +418,46 @@
 
 }
 
+@media (width < 64rem) and (orientation: landscape) {
+  .site-shell {
+    height: auto;
+    min-height: 100dvh;
+    overflow-y: auto;
+    padding-inline: 0;
+    background: var(--color-lavender);
+  }
+
+  .about-page {
+    overflow-y: auto;
+    min-height: 100dvh;
+    height: auto;
+    width: 100%;
+    background: var(--color-lavender);
+  }
+
+  .about-identity > div:first-child {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    aspect-ratio: auto;
+    z-index: 0;
+  }
+
+  .about-identity > div:first-child img {
+    object-fit: cover;
+    object-position: center top;
+  }
+
+  .about-content {
+    position: relative;
+    inset: auto;
+    z-index: 30;
+    min-height: 100dvh;
+    overflow: visible;
+    padding-top: var(--mobile-content-top);
+  }
+}
+
 
 @media (prefers-reduced-motion: reduce) {
   *, ::before, ::after {
@@ -401,4 +466,4 @@
   }
 }
 
-@custom-variant short (@media (height < 58rem));
+@custom-variant short (@media (height < 54rem));

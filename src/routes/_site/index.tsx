@@ -59,8 +59,8 @@ function About() {
 
                 <div className="about-nameplate animate-fade-up relative z-30 px-(--gutter) py-6 lg:absolute lg:top-[35%] lg:-left-[25px] lg:w-[83%] lg:p-0" style={{ animationDelay: "0.5s" }}>
                     <h1 className="type-display text-ink">
-                        <span className="block">{site.firstName}</span>
-                        <span className="block">{site.lastName}</span>
+                        <span>{site.firstName}</span>
+                        <span>{site.lastName}</span>
                     </h1>
                     <p className="mt-6 flex items-center gap-2.5 pl-1.5">
                         <span className="font-mono text-[15px] text-marine">{"</>"}</span>
@@ -132,7 +132,13 @@ function About() {
                         </div>
                     </div>
                     <div>
-                        <img src={coffeeIcon} alt="" width={23} height={23} />
+                        <img
+                            src={coffeeIcon}
+                            alt=""
+                            width={23}
+                            height={23}
+                            className="origin-bottom cursor-pointer hover:animate-ss"
+                        />
                     </div>
                 </div>
                 
