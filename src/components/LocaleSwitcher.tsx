@@ -1,46 +1,48 @@
-// Locale switcher refs:
-// - Paraglide docs: https://inlang.com/m/gerre34r/library-inlang-paraglideJs
-// - Router example: https://github.com/TanStack/router/tree/main/examples/react/i18n-paraglide#switching-locale
-import { getLocale, locales, setLocale } from '#/paraglide/runtime'
-import { m } from '#/paraglide/messages'
+import { useState, useEffect } from "react";
+import { getLocale, locales, setLocale } from "#/paraglide/runtime";
+import { m } from "#/paraglide/messages";
 
-export default function ParaglideLocaleSwitcher() {
-  const currentLocale = getLocale()
+export function LocaleSwitcher() {
+    const currentLocale = getLocale();
+    
+    const [activeLocale, setActiveLocale] = useState(currentLocale);
 
-  return (
-    <div
-      style={{
-        display: 'flex',
-        gap: '0.5rem',
-        alignItems: 'center',
-        color: 'inherit',
-      }}
-      aria-label={m.language_label()}
-    >
-      <span style={{ opacity: 0.85 }}>
-        {m.current_locale({ locale: currentLocale })}
-      </span>
-      <div style={{ display: 'flex', gap: '0.25rem' }}>
-        {locales.map((locale) => (
-          <button
-            key={locale}
-            onClick={() => setLocale(locale)}
-            aria-pressed={locale === currentLocale}
-            style={{
-              cursor: 'pointer',
-              padding: '0.35rem 0.75rem',
-              borderRadius: '999px',
-              border: '1px solid #d1d5db',
-              background: locale === currentLocale ? '#0f172a' : 'transparent',
-              color: locale === currentLocale ? '#f8fafc' : 'inherit',
-              fontWeight: locale === currentLocale ? 700 : 500,
-              letterSpacing: '0.01em',
-            }}
-          >
-            {locale.toUpperCase()}
-          </button>
-        ))}
-      </div>
-    </div>
-  )
+    useEffect(() => {
+        setActiveLocale(currentLocale);
+    }, [currentLocale]);
+
+    const currentIndex = locales.indexOf(activeLocale);
+
+    // Fix: Dynamically type `locale` as the exact union of your supported languages
+    const handleSelect = (locale: (typeof locales)[number]) => {
+        setActiveLocale(locale); 
+        setLocale(locale);       
+    };
+
+    return (
+        <div className="locale-switcher" role="group" aria-label={m.language_label()}>
+            <div className="locale-switcher__options">
+                <div
+                    className="absolute inset-y-[0.2rem] -z-10 rounded-full bg-marine transition-all duration-300 ease-out"
+                    style={{
+                        width: `calc((100% - 0.4rem - ${(locales.length - 1) * 0.125}rem) / ${locales.length})`,
+                        left: `calc(0.2rem + ${currentIndex} * (calc((100% - 0.4rem - ${(locales.length - 1) * 0.125}rem) / ${locales.length}) + 0.125rem))`
+                    }}
+                />
+                
+                {locales.map((locale) => (
+                    <button
+                        key={locale}
+                        // TypeScript now knows `locale` is strictly one of your array values
+                        onClick={() => handleSelect(locale as (typeof locales)[number])}
+                        aria-pressed={locale === activeLocale}
+                        type="button"
+                        className="locale-switcher__option"
+                    >
+                        {locale.toUpperCase()}
+                    </button>
+                ))}
+            </div>
+        </div>
+    );
 }
