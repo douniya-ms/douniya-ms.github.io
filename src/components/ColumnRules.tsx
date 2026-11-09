@@ -1,45 +1,54 @@
+const COLUMNS = 6
+const STEP = 0.08 // seconds between columns
+
+// left edge of line/column i, measured between the two gutters
+const edge = (i: number) =>
+  `calc(var(--gutter) + (100% - 2 * var(--gutter)) * ${i / COLUMNS})`
+
 export function ColumnRules() {
   return (
-    <div
-      aria-hidden
-      className="column-rules pointer-events-none absolute inset-0 z-0 hidden lg:block"
-    >
-      {/* 1. Reversed-L Indicator Bar: Leftmost Gutter splashes with Moss Green */}
-      <div
-        className="absolute inset-y-0 bg-moss animate-moss-splash"
-        style={{ left: 0, width: 'var(--gutter)', animationDelay: '0.6s' }}
-      />
-      
-      {/* 2. Grid Columns Backgrounds (Sequential Drop) */}
-      {Array.from({ length: 6 }, (_, i) => (
+    <>
+      {/* Layer A (z-0): backgrounds, behind the portrait */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 hidden lg:block">
+        {/* Left gutter, step 1: lavender drops in first, with the column group */}
         <div
-          key={`bg-${i}`}
-          className="absolute inset-y-0 bg-lavender animate-line-drop"
-          style={{
-            left: `calc(var(--gutter) + (100% - (2 * var(--gutter))) * ${i / 6})`,
-            width: `calc((100% - (2 * var(--gutter))) / 6)`,
-            animationDelay: `${i * 0.08}s`, 
-          }}
+          className="absolute inset-y-0 left-0 animate-line-drop bg-lavender"
+          style={{ width: 'var(--gutter)' }}
         />
-      ))}
-
-      {/* 3. Right Gutter Background */}
-      <div
-        className="absolute inset-y-0 bg-lavender animate-line-drop"
-        style={{ right: 0, width: 'var(--gutter)', animationDelay: '0.48s' }}
-      />
-
-      {/* 4. Grid Lines */}
-      {Array.from({ length: 7 }, (_, i) => (
-        <span
-          key={`line-${i}`}
-          className="animate-line-drop"
-          style={{
-            left: `calc(var(--gutter) + (100% - (2 * var(--gutter))) * ${i / 6})`,
-            animationDelay: `${i * 0.08}s`,
-          }}
+        {/* Left gutter, step 2: moss rises from the bottom, covering the lavender */}
+        <div
+          className="absolute inset-y-0 left-0 animate-moss-splash bg-moss"
+          style={{ width: 'var(--gutter)', animationDelay: '0.6s' }}
         />
-      ))}
-    </div>
+
+        {Array.from({ length: COLUMNS }, (_, i) => (
+          <div
+            key={i}
+            className="absolute inset-y-0 animate-line-drop bg-lavender"
+            style={{
+              left: edge(i),
+              width: `calc((100% - 2 * var(--gutter)) / ${COLUMNS})`,
+              animationDelay: `${(i + 1) * STEP}s`,
+            }}
+          />
+        ))}
+
+        <div
+          className="absolute inset-y-0 right-0 animate-line-drop bg-lavender"
+          style={{ width: 'var(--gutter)', animationDelay: `${(COLUMNS + 1) * STEP}s` }}
+        />
+      </div>
+
+      {/* Layer B (z-20): lines, above the portrait and moss, under the text */}
+      <div aria-hidden className="column-rules pointer-events-none absolute inset-0 z-20 hidden lg:block">
+        {Array.from({ length: COLUMNS + 1 }, (_, i) => (
+          <span
+            key={i}
+            className="animate-line-drop"
+            style={{ left: edge(i), animationDelay: `${(i + 1) * STEP}s` }}
+          />
+        ))}
+      </div>
+    </>
   )
 }

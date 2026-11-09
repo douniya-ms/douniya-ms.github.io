@@ -11,25 +11,32 @@ const navLinks = [
 
 export function SiteHeader() {
 	return (
-		<header className="relative z-40 flex h-[52px] items-center justify-between px-4 lg:grid lg:h-26 lg:grid-cols-6 lg:px-0">
-            
-            {/* Removed lg:bg-moss from parent, added relative positioning */}
-            <div className="relative flex items-center gap-3.5 pl-1 lg:col-span-2 lg:row-start-1 lg:h-full">
-                {/* The Rightward Moss Splash - Triggers at 0.8s (just as vertical splash finishes) */}
-                <div className="absolute inset-0 bg-moss -z-10 hidden lg:block animate-splash-right" style={{ animationDelay: '0.8s' }} />
-                
-                <p className="type-logo text-lavender">
-                    <span className="block">{site.logo[0]}</span>
-                    <span className="block">{site.logo[1]}</span>
-                </p>
-                <span aria-hidden className="h-[22px] w-px bg-surface-variant" />
-                <p className="type-mono hidden text-lavender lg:block">
-                    {m.role_title()}
-                </p>
-            </div>
+		<header className="relative z-40 flex h-[52px] items-center justify-between px-4 lg:z-auto lg:grid lg:h-26 lg:grid-cols-6 lg:px-0">
+			<div className="relative flex items-center pl-1 lg:col-span-2 lg:row-start-1 lg:h-full">
+				{/* Moss wipe: surface layer (z-10), so the lines draw over it.
+				    Starts after the gutter strip has risen. */}
+				<div
+					aria-hidden
+					className="absolute inset-0 z-10 hidden animate-splash-right bg-moss lg:block"
+					style={{ animationDelay: "1.2s" }}
+				/>
 
-			<nav aria-label="Main" className="col-span-3 col-start-4 row-start-1 hidden lg:flex">
-                {navLinks.map(({ to, index, label }) => (
+				{/* Text layer (z-30), above the lines */}
+				<div className="relative z-30 flex items-center gap-3.5">
+					<p className="type-logo text-lavender">
+						<span className="block">{site.logo[0]}</span>
+						<span className="block">{site.logo[1]}</span>
+					</p>
+					<span aria-hidden className="h-[22px] w-px bg-lavender" />
+					<p className="type-mono hidden text-lavender lg:block">{m.role_title()}</p>
+				</div>
+			</div>
+
+			<nav
+				aria-label="Main"
+				className="relative z-30 col-span-3 col-start-4 row-start-1 hidden lg:flex"
+			>
+      {navLinks.map(({ to, index, label }) => (
                     <Link
                         key={to}
                         to={to}
@@ -56,11 +63,12 @@ export function SiteHeader() {
                         />
                     </Link>
                 ))}
-            </nav>
+			</nav>
 
-			<div className="col-start-6 row-start-1 hidden justify-self-end lg:block">
+			<div className="relative z-30 col-start-6 row-start-1 hidden justify-self-end lg:block">
 				<LocaleSwitcher />
 			</div>
+
 			<button
 				type="button"
 				className="flex items-center gap-2 text-[18px] text-marine lg:hidden"
@@ -73,3 +81,5 @@ export function SiteHeader() {
 		</header>
 	);
 }
+
+

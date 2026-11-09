@@ -7,13 +7,9 @@ export const Route = createFileRoute("/_site")({ component: SiteLayout });
 
 function SiteLayout() {
 	return (
-		<div className="site-shell relative h-dvh overflow-hidden lg:px-(--gutter)">
-			<div
-				aria-hidden
-				className="site-gutter absolute inset-y-0 left-0 z-0 hidden w-(--gutter) bg-moss lg:block"
-			/>
+		<div className="site-shell relative h-dvh lg:flex lg:h-auto lg:min-h-dvh lg:flex-col lg:overflow-x-clip lg:px-(--gutter)">
 			<SiteHeader />
-			<main>
+			<main className="lg:flex-1">
 				<Outlet />
 			</main>
 			<SiteFooter />

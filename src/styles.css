@@ -45,43 +45,6 @@
   #root {
     min-height: 100%;
   }
-  @keyframes line-draw {
-  from { transform: scaleY(0); }
-  to { transform: scaleY(1); }
-}
-
-
-
-
-
-@keyframes bg-fill {
-  from { transform: scaleY(0); }
-  to { transform: scaleY(1); }
-}
-
-
-
-
-}
-@utility animate-line-draw {
-  transform-origin: top;
-  transform: scaleY(0);
-  animation: line-draw 1.2s cubic-bezier(0.7, 0, 0.3, 1) forwards;
-}
-
-@utility animate-slice-slide {
-  transform: translateX(100%);
-  animation: slice-slide 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-@utility animate-bg-fill {
-  transform-origin: bottom;
-  transform: scaleY(0);
-  animation: bg-fill 1.2s cubic-bezier(0.7, 0, 0.3, 1) forwards;
-}
-
-@utility animate-fade-up {
-  animation: text-fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 /* 1. Add Squash & Stretch Animation Utility */
 @keyframes squash-stretch {
@@ -404,5 +367,13 @@
 
   .mobile-footer > div {
     padding-inline: var(--mobile-footer-row-padding);
+  }
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation: none !important;
+    transition: none !important;
   }
 }
