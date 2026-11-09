@@ -27,7 +27,7 @@ export function SiteHeader() {
 						<span className="block">{site.logo[0]}</span>
 						<span className="block">{site.logo[1]}</span>
 					</p>
-					<span aria-hidden className="h-[22px] w-px bg-lavender" />
+					<span aria-hidden className="header-divider h-[22px] w-px bg-lavender" />
 					<p className="type-mono hidden text-lavender lg:block">{m.role_title()}</p>
 				</div>
 			</div>
@@ -81,5 +81,4 @@ export function SiteHeader() {
 		</header>
 	);
 }
-
 

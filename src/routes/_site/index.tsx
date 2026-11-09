@@ -72,15 +72,15 @@ function About() {
                 </div>
             </section>
 
-            <section className="about-content relative z-30 flex flex-col gap-6 px-(--gutter) lg:col-span-3 lg:px-0 lg:pt-[50px] lg:pr-4">
+<section className="about-content relative z-30 flex flex-col gap-6 lg:short:gap-4 px-(--gutter) lg:col-span-3 lg:px-0 lg:pt-[50px] lg:short:pt-6 lg:pr-4">
                 
                 {/* 1. SECTION 1 TITLE APPEARS FIRST: "A little about me" */}
-                <div className="animate-fade-up" style={{ animationDelay: "0.5s" }}>
+                <div className="mobile-hidden-section-label animate-fade-up" style={{ animationDelay: "0.5s" }}>
                     <SectionLabel withRule>{m.about_label()}</SectionLabel>
                 </div>
 
                 {/* Section 1 Content follows shortly after */}
-                <div className="flex flex-col gap-6 animate-fade-up" style={{ animationDelay: "0.7s" }}>
+                <div className="flex flex-col gap-6 lg:short:gap-4 animate-fade-up" style={{ animationDelay: "0.7s" }}>
                     <h2 className="type-heading text-ink">
                         <span className="block">{m.about_heading_1()}</span>
                         <span className="block">{m.about_heading_2()}</span>
@@ -97,7 +97,7 @@ function About() {
                         </p>
                     </div>
                     {/* Chips follow after */}
-                    <div className="animate-fade-up flex flex-col gap-2" style={{ animationDelay: "0.8s" }}>
+                    <div className="animate-slide-in-right flex flex-col gap-2" style={{ animationDelay: "0.8s" }}>
                         <ul className="flex flex-wrap gap-2">
                             <Chip>{m.skill_python()}</Chip>
                             <Chip>{m.skill_notebooks()}</Chip>
@@ -114,30 +114,47 @@ function About() {
                 </div>
 
                 {/* 3. SECTION 3 TITLE APPEARS FIRST: "When I'm not at my desk" */}
-                <div className="flex items-start gap-[18px]">
-                    <div className="animate-fade-up" style={{ animationDelay: "0.7s" }}>
+                <div className="animate-slide-in-right flex items-start gap-[18px]" style={{ animationDelay: "0.7s" }}>
+                    <div>
                         <span aria-hidden className="type-mono text-moss-ink">
                             //
                         </span>
                     </div>
                     <div className="flex flex-1 flex-col gap-[7px]">
-                        <div className="animate-fade-up" style={{ animationDelay: "0.7s" }}>
+                        <div>
                             <p className="type-mono uppercase text-moss-ink">
                                 {m.personal_label()}
                             </p>
                         </div>
                         {/* Personal description text follows */}
-                        <div className="animate-fade-up" style={{ animationDelay: "0.9s" }}>
+                        <div>
                             <p className="type-body text-ink">{m.personal_text()}</p>
                         </div>
                     </div>
-                    <div className="animate-fade-up" style={{ animationDelay: "0.9s" }}>
-                        <img src={coffeeIcon} alt="" width={23} height={23} className="relative z-10 h-full flex-1 overflow-hidden animate-slice-bounce" />
+                    <div>
+                        <img src={coffeeIcon} alt="" width={23} height={23} />
                     </div>
                 </div>
                 
                 <div className="mobile-footer lg:hidden">
-                    {/* Footer contents */}
+                    <div className="flex w-full items-center justify-between px-(--mobile-footer-row-padding)">
+                        <p className="type-logo text-lavender">
+                            <span className="block">{site.logo[0]}</span>
+                            <span className="block">{site.logo[1]}</span>
+                        </p>
+                        <div className="flex items-center gap-4">
+                            <a href={site.github} className="type-mono text-lavender">
+                                GitHub <span className="text-marine">↗</span>
+                            </a>
+                            <a href={site.linkedin} className="type-mono text-lavender">
+                                LinkedIn <span className="text-marine">↗</span>
+                            </a>
+                        </div>
+                    </div>
+                    <a href="/contact" className="type-body text-marine">
+                        {m.cta_question()}{" "}
+                        <span className="text-lavender">{m.cta_link()} ↗</span>
+                    </a>
                 </div>
             </section>
         </div>
