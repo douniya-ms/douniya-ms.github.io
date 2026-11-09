@@ -12,16 +12,21 @@ const navLinks = [
 export function SiteHeader() {
 	return (
 		<header className="relative z-40 flex h-[52px] items-center justify-between px-4 lg:grid lg:h-26 lg:grid-cols-6 lg:px-0">
-			<div className="flex items-center gap-3.5 pl-1 lg:col-span-2 lg:row-start-1 lg:h-full lg:bg-moss">
-				<p className="type-logo text-lavender">
-					<span className="block">{site.logo[0]}</span>
-					<span className="block">{site.logo[1]}</span>
-				</p>
-				<span aria-hidden className="h-[22px] w-px bg-surface-variant" />
-				<p className="type-mono hidden text-lavender lg:block">
-					{m.role_title()}
-				</p>
-			</div>
+            
+            {/* Removed lg:bg-moss from parent, added relative positioning */}
+            <div className="relative flex items-center gap-3.5 pl-1 lg:col-span-2 lg:row-start-1 lg:h-full">
+                {/* The Rightward Moss Splash - Triggers at 0.8s (just as vertical splash finishes) */}
+                <div className="absolute inset-0 bg-moss -z-10 hidden lg:block animate-splash-right" style={{ animationDelay: '0.8s' }} />
+                
+                <p className="type-logo text-lavender">
+                    <span className="block">{site.logo[0]}</span>
+                    <span className="block">{site.logo[1]}</span>
+                </p>
+                <span aria-hidden className="h-[22px] w-px bg-surface-variant" />
+                <p className="type-mono hidden text-lavender lg:block">
+                    {m.role_title()}
+                </p>
+            </div>
 
 			<nav aria-label="Main" className="col-span-3 col-start-4 row-start-1 hidden lg:flex">
                 {navLinks.map(({ to, index, label }) => (

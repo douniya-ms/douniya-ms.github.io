@@ -8,14 +8,13 @@
 @import 'tailwindcss';
 
 @theme {
-  /* Reset Tailwind's defaults so only your palette and radii exist */
   --color-*: initial;
   --radius-*: initial;
 
   --color-lavender: #e9e8f8;
-  --color-surface-variant: #a8b7bd;
-  --color-moss: #6d8f63;
-  --color-moss-ink: #46633f; /* optional: moss for small text */
+  --color-lavender-dark: #D6D5EB;
+  --color-moss: #6d8f63;          /* Moss Green fill */
+  --color-moss-ink: #46633f; 
   --color-marine: #0b3048;
   --color-ink: #0a0c10;
 
@@ -39,15 +38,51 @@
     :root { --gutter: min(4.6875rem, 5vw); } /* Desktop Horizontal Padding */
   }
   body {
-    @apply bg-lavender text-ink type-body;
+    @apply bg-lavender-dark text-ink type-body;
   }
   html,
   body,
   #root {
     min-height: 100%;
   }
+  @keyframes line-draw {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
 }
 
+
+
+
+
+@keyframes bg-fill {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+
+
+
+
+}
+@utility animate-line-draw {
+  transform-origin: top;
+  transform: scaleY(0);
+  animation: line-draw 1.2s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+}
+
+@utility animate-slice-slide {
+  transform: translateX(100%);
+  animation: slice-slide 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@utility animate-bg-fill {
+  transform-origin: bottom;
+  transform: scaleY(0);
+  animation: bg-fill 1.2s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+}
+
+@utility animate-fade-up {
+  animation: text-fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
 /* 1. Add Squash & Stretch Animation Utility */
 @keyframes squash-stretch {
   0% { transform: scale(1, 1); }
@@ -80,6 +115,59 @@
   animation: squash-stretch-tr 0.5s cubic-bezier(0.28, 0.84, 0.42, 1);
 }
 
+@keyframes line-drop {
+  0% { transform: scaleY(0); }
+  100% { transform: scaleY(1); }
+}
+
+@utility animate-line-drop {
+  transform-origin: top;
+  animation: line-drop 0.8s cubic-bezier(0.25, 1, 0.5, 1) both;
+}
+
+/* 2. Image slices sliding in from right with an overshoot bounce */
+@keyframes slice-slide-bounce {
+  0% { transform: translateX(100%); opacity: 0; }
+  1% { opacity: 1; }
+  60% { transform: translateX(-5%); opacity: 1; }
+  80% { transform: translateX(2%); }
+  100% { transform: translateX(0); opacity: 1; }
+}
+
+@utility animate-slice-bounce {
+  animation: slice-slide-bounce 0.9s cubic-bezier(0.25, 1, 0.5, 1) both;
+}
+
+/* 2. The Moss Splash Animations (Inverted L) */
+@keyframes moss-splash-up {
+  0% { transform: scaleY(0); }
+  100% { transform: scaleY(1); }
+}
+
+@utility animate-moss-splash {
+  transform-origin: bottom;
+  animation: moss-splash-up 0.9s cubic-bezier(0.25, 1, 0.5, 1) both;
+}
+
+@keyframes splash-right {
+  0% { transform: scaleX(0); }
+  100% { transform: scaleX(1); }
+}
+@utility animate-splash-right {
+  transform-origin: left;
+  animation: splash-right 0.6s cubic-bezier(0.7, 0, 0.3, 1) both;
+}
+
+/* 3. Text sliding up and fading in */
+@keyframes text-fade-up {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+@utility animate-fade-up {
+  animation: text-fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+
 .portrait-shade {
   background: linear-gradient(90deg, rgb(233 232 248 / 55%) 0%, rgb(233 232 248 / 0%) 100%);
 }
@@ -91,14 +179,14 @@
   color: var(--color-marine);
 }
 
-@keyframes locale-fade {
+/* @keyframes locale-fade {
   0% { opacity: 0; filter: blur(4px); }
   100% { opacity: 1; filter: blur(0px); }
 }
 
 @utility animate-locale-fade {
   animation: locale-fade 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-}
+} */
 
 .locale-switcher__label {
   color: var(--color-moss-ink);
