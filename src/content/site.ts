@@ -5,5 +5,7 @@ export const site = {
   logo: ['DU', 'NIA.'],
   github: 'https://github.com/',
   linkedin: 'https://www.linkedin.com/',
-  email: 'mailto:hello@example.com',
+  email: 'douniyamaayoussi@gmail.com',
+  phone: '+212 691858691',
+  phoneHref: 'tel:+212691858691'
 } as const

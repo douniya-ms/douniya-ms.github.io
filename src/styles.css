@@ -2,6 +2,7 @@
 @import '@fontsource/fira-sans/latin-400.css';
 @import '@fontsource/fira-sans/latin-500.css';
 @import '@fontsource/fira-sans/latin-600.css';
+@import '@fontsource/fira-sans/latin-700.css';
 @import '@fontsource/archivo-black/latin-400.css';
 @import '@fontsource/ibm-plex-mono/latin-400.css';
 @import '@fontsource/ibm-plex-mono/latin-600.css';
@@ -292,6 +293,12 @@
   font-size: 1.5rem;
   line-height: 1;
 }
+@utility type-logo-sm {
+  font-family: var(--font-logo);
+  font-size: 1rem;
+  line-height: 1;
+}
+
 @utility type-nav {
   font-family: var(--font-sans);
   font-size: 0.875rem;
@@ -318,13 +325,13 @@
     display: none;
   }
 
- .about-page {
-  height: 100dvh;
-  overflow: hidden;
-  --mobile-name-top: 52px;
-  --mobile-name-h: 140px;
-  --mobile-content-top: calc(var(--mobile-name-top) + var(--mobile-name-h));
-}
+  .about-page {
+    height: 100dvh;
+    overflow: hidden;
+    --mobile-name-top: 52px;
+    --mobile-name-h: 140px;
+    --mobile-content-top: calc(var(--mobile-name-top) + var(--mobile-name-h));
+  }
 
   .about-identity {
     position: absolute;
@@ -386,16 +393,16 @@
   }
 
  .about-content {
-  position: absolute;
-  inset: var(--mobile-content-top) 0 0 0;   /* scrollport starts below the nameplate */
-  z-index: 30;
-  overflow-y: auto;
-  padding: 1rem 1rem 0;                      /* was 262px 1rem 0 */
-  scrollbar-width: none;
-  /* content dissolves at the top edge instead of overlapping */
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 1rem);
-  mask-image: linear-gradient(to bottom, transparent 0, #000 1rem);
-}
+    position: absolute;
+    inset: var(--mobile-content-top) 0 0 0;   /* scrollport starts below the nameplate */
+    z-index: 30;
+    overflow-y: auto;
+    padding: 1rem 1rem 0;                      /* was 262px 1rem 0 */
+    scrollbar-width: none;
+    /* content dissolves at the top edge instead of overlapping */
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 1rem);
+    mask-image: linear-gradient(to bottom, transparent 0, #000 1rem);
+  }
 
   .about-content::-webkit-scrollbar {
     display: none;
@@ -407,6 +414,10 @@
 
   .about-content .type-heading {
     font-size: 3rem;
+  }
+
+  .about-content .type-heading.contact-heading {
+    font-size: 2.5rem; /* Contact mobile heading is 40px; About's stays 48px */
   }
 
   .mobile-footer {
