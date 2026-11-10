@@ -2,16 +2,14 @@ import { Link } from "@tanstack/react-router";
 import { LocaleSwitcher } from "#/components/LocaleSwitcher";
 import { site } from "#/content/site";
 import { m } from "#/paraglide/messages";
+import { navLinks } from "#/content/nav";
+import { MobileMenu } from "#/components/MobileMenu";
 
-const navLinks = [
-	{ to: "/", index: "01", label: () => m.nav_about() },
-	{ to: "/work", index: "02", label: () => m.nav_work() },
-	{ to: "/contact", index: "03", label: () => m.nav_contact() },
-] as const;
+
 
 export function SiteHeader() {
 	return (
-		<header className="relative z-40 flex h-[52px] items-center justify-between px-4 lg:z-auto lg:grid lg:h-26 lg:grid-cols-6 lg:px-0">
+		<header className="relative z-[60] flex h-[52px] items-center justify-between px-4 lg:z-auto lg:grid lg:h-26 lg:grid-cols-6 lg:px-0">
 			<div className="relative flex items-center pl-1 lg:col-span-2 lg:row-start-1 lg:h-full">
 				{/* Moss wipe: surface layer (z-10), so the lines draw over it.
 				    Starts after the gutter strip has risen. */}
@@ -69,16 +67,7 @@ export function SiteHeader() {
 				<LocaleSwitcher />
 			</div>
 
-			<button
-				type="button"
-				className="flex items-center gap-2 text-[18px] text-marine lg:hidden"
-			>
-				<span>Menu</span>
-				<span aria-hidden className="text-[20px] leading-none">
-					☰
-				</span>
-			</button>
+			<MobileMenu />
 		</header>
 	);
 }
-

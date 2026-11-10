@@ -31,5 +31,7 @@
   "footer_hello": "Say hello",
   "contact_label": "Let’s Work Together",
   "contact_heading": "Let’s Build Something Together",
-  "contact_text": "Feel free to reach out if you’re looking for an AI & Data Engineer, have a question, or just want to connect."
+  "contact_text": "Feel free to reach out if you’re looking for an AI & Data Engineer, have a question, or just want to connect.",
+  "menu_open": "Menu",
+  "menu_close": "Close"
 }
