@@ -4,7 +4,13 @@ import portrait from "#/assets/portrait.png";
 import { site } from "#/content/site";
 import { m } from "#/paraglide/messages";
 
-export function Identity({ children }: { children?: ReactNode }) {
+export function Identity({
+	children,
+	showNameplate = true,
+}: {
+	children?: ReactNode;
+	showNameplate?: boolean;
+}) {
 	return (
 		<section className="about-identity relative lg:col-span-3 lg:self-start">
 			<div className="relative flex aspect-[580/682] overflow-hidden lg:max-h-[max(600px,calc(100dvh-209px))] lg:w-[86.3%]">
@@ -33,7 +39,13 @@ export function Identity({ children }: { children?: ReactNode }) {
 					style={{ animationDelay: "0.5s" }}
 				>
 					{m.portrait_caption()}
-					<img src={sparklesIcon} alt="" width={15} height={15} className="origin-bottom cursor-pointer hover:animate-ss" />
+					<img
+						src={sparklesIcon}
+						alt=""
+						width={15}
+						height={15}
+						className="origin-bottom cursor-pointer hover:animate-ss"
+					/>
 				</p>
 				<p
 					className="portrait-initials animate-fade-up type-mono absolute bottom-8 right-10 text-ink"
@@ -43,20 +55,22 @@ export function Identity({ children }: { children?: ReactNode }) {
 				</p>
 			</div>
 
-			<div
-				className="about-nameplate animate-fade-up relative z-30 px-(--gutter) py-6 lg:absolute lg:top-[35%] lg:-left-[25px] lg:w-[83%] lg:p-0"
-				style={{ animationDelay: "0.5s" }}
-			>
-				<h1 className="type-display text-ink">
-					<span className="lg:block">{site.firstName}</span>{" "}
-					<span className="lg:block">{site.lastName}</span>
-				</h1>
-				<p className="mt-6 flex items-center gap-2.5 pl-1.5">
-					<span className="font-mono text-[15px] text-marine">{"</>"}</span>
-					<span className="type-mono text-ink">{m.tagline()}</span>
-				</p>
-				{children}
-			</div>
+			{showNameplate && (
+				<div
+					className="about-nameplate animate-fade-up relative z-30 px-(--gutter) py-6 lg:absolute lg:top-[35%] lg:-left-[25px] lg:w-[83%] lg:p-0"
+					style={{ animationDelay: "0.5s" }}
+				>
+					<h1 className="type-display text-ink">
+						<span className="lg:block">{site.firstName}</span>{" "}
+						<span className="lg:block">{site.lastName}</span>
+					</h1>
+					<p className="mt-6 flex items-center gap-2.5 pl-1.5">
+						<span className="font-mono text-[15px] text-marine">{"</>"}</span>
+						<span className="type-mono text-ink">{m.tagline()}</span>
+					</p>
+					{children}
+				</div>
+			)}
 		</section>
 	);
 }

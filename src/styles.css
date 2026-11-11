@@ -23,6 +23,9 @@
   --font-sans: 'Fira Sans', system-ui, sans-serif;
   --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
 
+  --color-mist: #d2d6d5;          /* diagram + alternate card surface */
+  --color-mist-light: #e2e3e0;    /* card surface */
+
   --radius-chip: 0.25rem;
 }
 
@@ -155,6 +158,37 @@
 }
 
 /* 3. Text sliding up and fading in */
+/* "View details" arrow: exits to the right, re-enters from the left */
+@keyframes arrow-loop {
+  0% { transform: translateX(0); }
+  45% { transform: translateX(110%); }
+  45.01% { transform: translateX(-110%); }
+  100% { transform: translateX(0); }
+}
+@utility animate-arrow-loop {
+  animation: arrow-loop 0.7s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* Chapter markers: the text bumps into the rule, pushes it, springs back */
+@keyframes marker-bump {
+  0% { transform: translateX(0); }
+  30% { transform: translateX(-12px); }  /* touches the rule (the gap is 12px) */
+  45% { transform: translateX(-16px); }  /* pushes it a little */
+  75% { transform: translateX(2px); }
+  100% { transform: translateX(0); }
+}
+@keyframes marker-rule {
+  0%, 30% { transform: scaleX(1); }
+  45% { transform: scaleX(0.86); }
+  75%, 100% { transform: scaleX(1); }
+}
+@utility animate-marker-bump {
+  animation: marker-bump 0.9s cubic-bezier(0.3, 0.7, 0.4, 1) 0.15s both;
+}
+@utility animate-marker-rule {
+  animation: marker-rule 0.9s cubic-bezier(0.3, 0.7, 0.4, 1) 0.15s both;
+}
+
 @keyframes text-fade-up {
   0% { opacity: 0; transform: translateY(30px); }
   100% { opacity: 1; transform: translateY(0); }
@@ -162,7 +196,6 @@
 @utility animate-fade-up {
   animation: text-fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
-
 
 .portrait-shade {
   background: linear-gradient(90deg, rgb(233 232 248 / 55%) 0%, rgb(233 232 248 / 0%) 100%);
@@ -299,16 +332,49 @@
   line-height: 1;
 }
 
+/* Fira 16/1.5: facts, diagram layers, state definitions, card text */
+@utility type-small {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+/* Fira 24/1.4: the marine "//" questions */
+@utility type-quote {
+  font-family: var(--font-sans);
+  font-size: 1.5rem;
+  line-height: 1.4;
+}
+
 @utility type-nav {
   font-family: var(--font-sans);
   font-size: 0.875rem;
   line-height: normal;
 }
 
+.project-shell {
+  display: flex;
+  min-height: calc(100dvh - 157px);
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 3rem var(--gutter);
+}
+
+.project-shell-back {
+  color: var(--color-marine);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-decoration: none;
+}
+
 @media (width < 64rem) {
   .site-shell {
     overflow: hidden;
   }
+}
+
+@media (width < 64rem) {
 
   .site-shell > header {
     position: absolute;
@@ -469,6 +535,23 @@
   }
 }
 
+/* Case-study pages: in-flow header on mobile, moss logo on lavender */
+@media (width < 64rem) {
+  .case-shell > header {
+    padding-top: 16px;
+    height: auto;
+  }
+  .case-shell > header .type-logo {
+    color: var(--color-moss);
+  }
+}
+
+/* The reading cue scrolls smoothly, unless the visitor prefers less motion */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
 
 @media (prefers-reduced-motion: reduce) {
   *, ::before, ::after {

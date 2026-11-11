@@ -23,7 +23,16 @@ const config = defineConfig({
         crawlLinks: true,
         failOnError: true,
       },
-      pages: [{ path: '/' }, { path: '/fr' }],
+      // Locale roots + French case studies. The crawler can't find these on its own:
+      // the Work page only renders the current project, and auto-discovery only
+      // adds the English paths. Add a line here for every new project.
+      pages: [
+        '/',
+        '/fr',
+        '/fr/work/avatar',
+        '/fr/work/cadence',
+        '/fr/work/yalla-agent',
+      ].map((path) => ({ path })),
     }),
     viteReact(),
   ],

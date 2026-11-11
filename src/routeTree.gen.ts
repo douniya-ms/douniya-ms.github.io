@@ -9,11 +9,19 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as CaseRouteImport } from './routes/_case'
 import { Route as SiteRouteImport } from './routes/_site'
 import { Route as SiteIndexRouteImport } from './routes/_site/index'
 import { Route as SiteContactRouteImport } from './routes/_site/contact'
-import { Route as SiteWorkRouteImport } from './routes/_site/work'
+import { Route as CaseWorkAvatarRouteImport } from './routes/_case/work/avatar'
+import { Route as CaseWorkCadenceRouteImport } from './routes/_case/work/cadence'
+import { Route as CaseWorkYallaAgentRouteImport } from './routes/_case/work/yalla-agent'
+import { Route as SiteWorkIndexRouteImport } from './routes/_site/work/index'
 
+const CaseRoute = CaseRouteImport.update({
+  id: '/_case',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SiteRoute = SiteRouteImport.update({
   id: '/_site',
   getParentRoute: () => rootRouteImport,
@@ -28,43 +36,97 @@ const SiteContactRoute = SiteContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => SiteRoute,
 } as any)
-const SiteWorkRoute = SiteWorkRouteImport.update({
-  id: '/work',
-  path: '/work',
+const CaseWorkAvatarRoute = CaseWorkAvatarRouteImport.update({
+  id: '/work/avatar',
+  path: '/work/avatar',
+  getParentRoute: () => CaseRoute,
+} as any)
+const CaseWorkCadenceRoute = CaseWorkCadenceRouteImport.update({
+  id: '/work/cadence',
+  path: '/work/cadence',
+  getParentRoute: () => CaseRoute,
+} as any)
+const CaseWorkYallaAgentRoute = CaseWorkYallaAgentRouteImport.update({
+  id: '/work/yalla-agent',
+  path: '/work/yalla-agent',
+  getParentRoute: () => CaseRoute,
+} as any)
+const SiteWorkIndexRoute = SiteWorkIndexRouteImport.update({
+  id: '/work/',
+  path: '/work/',
   getParentRoute: () => SiteRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof SiteIndexRoute
   '/contact': typeof SiteContactRoute
-  '/work': typeof SiteWorkRoute
+  '/work/avatar': typeof CaseWorkAvatarRoute
+  '/work/cadence': typeof CaseWorkCadenceRoute
+  '/work/yalla-agent': typeof CaseWorkYallaAgentRoute
+  '/work/': typeof SiteWorkIndexRoute
 }
 export interface FileRoutesByTo {
-  '/contact': typeof SiteContactRoute
-  '/work': typeof SiteWorkRoute
   '/': typeof SiteIndexRoute
+  '/contact': typeof SiteContactRoute
+  '/work/avatar': typeof CaseWorkAvatarRoute
+  '/work/cadence': typeof CaseWorkCadenceRoute
+  '/work/yalla-agent': typeof CaseWorkYallaAgentRoute
+  '/work': typeof SiteWorkIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
+  '/_case': typeof CaseRouteWithChildren
   '/_site': typeof SiteRouteWithChildren
   '/_site/contact': typeof SiteContactRoute
-  '/_site/work': typeof SiteWorkRoute
   '/_site/': typeof SiteIndexRoute
+  '/_case/work/avatar': typeof CaseWorkAvatarRoute
+  '/_case/work/cadence': typeof CaseWorkCadenceRoute
+  '/_case/work/yalla-agent': typeof CaseWorkYallaAgentRoute
+  '/_site/work/': typeof SiteWorkIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/contact' | '/work'
+  fullPaths:
+    | '/'
+    | '/contact'
+    | '/work/avatar'
+    | '/work/cadence'
+    | '/work/yalla-agent'
+    | '/work/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/contact' | '/work' | '/'
-  id: '__root__' | '/_site' | '/_site/contact' | '/_site/work' | '/_site/'
+  to:
+    | '/'
+    | '/contact'
+    | '/work/avatar'
+    | '/work/cadence'
+    | '/work/yalla-agent'
+    | '/work'
+  id:
+    | '__root__'
+    | '/_case'
+    | '/_site'
+    | '/_site/contact'
+    | '/_site/'
+    | '/_case/work/avatar'
+    | '/_case/work/cadence'
+    | '/_case/work/yalla-agent'
+    | '/_site/work/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
+  CaseRoute: typeof CaseRouteWithChildren
   SiteRoute: typeof SiteRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/_case': {
+      id: '/_case'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof CaseRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_site': {
       id: '/_site'
       path: ''
@@ -86,31 +148,67 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SiteContactRouteImport
       parentRoute: typeof SiteRoute
     }
-    '/_site/work': {
-      id: '/_site/work'
+    '/_case/work/avatar': {
+      id: '/_case/work/avatar'
+      path: '/work/avatar'
+      fullPath: '/work/avatar'
+      preLoaderRoute: typeof CaseWorkAvatarRouteImport
+      parentRoute: typeof CaseRoute
+    }
+    '/_case/work/cadence': {
+      id: '/_case/work/cadence'
+      path: '/work/cadence'
+      fullPath: '/work/cadence'
+      preLoaderRoute: typeof CaseWorkCadenceRouteImport
+      parentRoute: typeof CaseRoute
+    }
+    '/_case/work/yalla-agent': {
+      id: '/_case/work/yalla-agent'
+      path: '/work/yalla-agent'
+      fullPath: '/work/yalla-agent'
+      preLoaderRoute: typeof CaseWorkYallaAgentRouteImport
+      parentRoute: typeof CaseRoute
+    }
+    '/_site/work/': {
+      id: '/_site/work/'
       path: '/work'
-      fullPath: '/work'
-      preLoaderRoute: typeof SiteWorkRouteImport
+      fullPath: '/work/'
+      preLoaderRoute: typeof SiteWorkIndexRouteImport
       parentRoute: typeof SiteRoute
     }
   }
 }
 
+interface CaseRouteChildren {
+  CaseWorkAvatarRoute: typeof CaseWorkAvatarRoute
+  CaseWorkCadenceRoute: typeof CaseWorkCadenceRoute
+  CaseWorkYallaAgentRoute: typeof CaseWorkYallaAgentRoute
+}
+
+const CaseRouteChildren: CaseRouteChildren = {
+  CaseWorkAvatarRoute: CaseWorkAvatarRoute,
+  CaseWorkCadenceRoute: CaseWorkCadenceRoute,
+  CaseWorkYallaAgentRoute: CaseWorkYallaAgentRoute,
+}
+
+const CaseRouteWithChildren = CaseRoute._addFileChildren(CaseRouteChildren)
+
 interface SiteRouteChildren {
   SiteContactRoute: typeof SiteContactRoute
-  SiteWorkRoute: typeof SiteWorkRoute
   SiteIndexRoute: typeof SiteIndexRoute
+  SiteWorkIndexRoute: typeof SiteWorkIndexRoute
 }
 
 const SiteRouteChildren: SiteRouteChildren = {
   SiteContactRoute: SiteContactRoute,
-  SiteWorkRoute: SiteWorkRoute,
   SiteIndexRoute: SiteIndexRoute,
+  SiteWorkIndexRoute: SiteWorkIndexRoute,
 }
 
 const SiteRouteWithChildren = SiteRoute._addFileChildren(SiteRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
+  CaseRoute: CaseRouteWithChildren,
   SiteRoute: SiteRouteWithChildren,
 }
 export const routeTree = rootRouteImport

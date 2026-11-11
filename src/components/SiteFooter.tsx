@@ -3,11 +3,13 @@ import githubIcon from "#/assets/icons/github.svg";
 import linkedinIcon from "#/assets/icons/linkedin.svg";
 import { FooterLink } from "#/components/FooterLink";
 import { ArrowUpRight } from "#/components/icons";
+import { ProjectControls } from "#/components/ProjectControls";
 import { site } from "#/content/site";
 import { m } from "#/paraglide/messages";
 
 export function SiteFooter() {
 	const onContact = useMatch({ from: "/_site/contact", shouldThrow: false });
+	const onWork = useMatch({ from: "/_site/work/", shouldThrow: false });
 
 	return (
 		<footer className="site-footer relative z-30 hidden h-[105px] grid-cols-6 items-center lg:grid">
@@ -26,14 +28,17 @@ export function SiteFooter() {
 						<span className="block">{site.logo[1]}</span>
 					</p>
 				) : (
-					<div className="flex items-center gap-2.5">
-						<span className="type-body text-marine">{m.cta_question()}</span>
-						<Link to="/contact" className="group type-body flex items-center gap-1 text-ink">
-							<span className="relative pb-[1px] after:absolute after:bottom-0 after:left-0 after:h-px after:w-full after:origin-right after:scale-x-0 after:bg-current after:transition-transform after:duration-300 group-hover:after:origin-left group-hover:after:scale-x-100">
-								{m.cta_link()}
-							</span>
-							<ArrowUpRight className="origin-bottom-left text-[13px] group-hover:animate-ss-tr" />
-						</Link>
+					<div className="flex flex-1 items-center justify-between gap-6">
+						<div className="flex items-center gap-2.5">
+							<span className="type-body text-marine">{m.cta_question()}</span>
+							<Link to="/contact" className="group type-body flex items-center gap-1 text-ink">
+								<span className="relative pb-[1px] after:absolute after:bottom-0 after:left-0 after:h-px after:w-full after:origin-right after:scale-x-0 after:bg-current after:transition-transform after:duration-300 group-hover:after:origin-left group-hover:after:scale-x-100">
+									{m.cta_link()}
+								</span>
+								<ArrowUpRight className="origin-bottom-left text-[13px] group-hover:animate-ss-tr" />
+							</Link>
+						</div>
+						{onWork && <ProjectControls />}
 					</div>
 				)}
 			</div>

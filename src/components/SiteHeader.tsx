@@ -38,7 +38,7 @@ export function SiteHeader() {
                     <Link
                         key={to}
                         to={to}
-                        activeOptions={{ exact: true }}
+                        activeOptions={{ exact: to === "/" }}
                         className="group flex h-12 w-35 flex-col gap-[13px] pt-1.5"
                     >
                         <span className="flex items-center gap-2.5 text-marine group-data-[status=active]:text-ink transition-colors">

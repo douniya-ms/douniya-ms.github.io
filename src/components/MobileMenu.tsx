@@ -67,7 +67,7 @@ export function MobileMenu() {
 						<Link
 							key={to}
 							to={to}
-							activeOptions={{ exact: true }}
+							activeOptions={{ exact: to === "/" }}
 							onClick={close}
 							className={`type-heading w-fit text-marine data-[status=active]:text-moss ${enter}`}
 							style={delay(i)}
