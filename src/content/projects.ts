@@ -2,7 +2,8 @@ import avatarCard from "#/assets/projects/avatar/Avatar-landscape.jpg";
 import avatarCover from "#/assets/projects/avatar/Avatar.jpg";
 import cadenceCard from "#/assets/projects/cadence/Metrics.jpg";
 import cadenceCover from "#/assets/projects/cadence/Forecast Detail.jpg";
-import yallaCover from "#/assets/projects/yalla-agent/AI_Agent.jpg";
+import yallaCard from "#/assets/projects/yalla-agent/AI_Agent.jpg";
+import yallaCover from "#/assets/projects/yalla-agent/yalla-agent-portrait.jpg";
 import { m } from "#/paraglide/messages";
 
 export type ProjectCard = {
@@ -58,7 +59,7 @@ export const projects: ProjectCard[] = [
 		slug: "yalla-agent",
 		route: "/work/yalla-agent",
 		cover: yallaCover,
-		card: yallaCover,
+		card: yallaCard,
 		status: "coming-soon",
 		year: 2025,
 		tags: ["AI agents", "RAG", "Python"],
