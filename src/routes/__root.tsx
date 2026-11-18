@@ -34,6 +34,11 @@ export const Route = createRootRoute({
         rel: 'stylesheet',
         href: appCss,
       },
+      // "DU NIA." monogram (files in public/, redrawn from src/assets/Douniya monogram.png)
+      { rel: 'icon', href: '/favicon.ico', sizes: '48x48' },
+      { rel: 'icon', href: '/favicon-32.png', type: 'image/png', sizes: '32x32' },
+      { rel: 'icon', href: '/icon-192.png', type: 'image/png', sizes: '192x192' },
+      { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
     ],
   }),
   notFoundComponent: NotFound,
