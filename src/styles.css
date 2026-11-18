@@ -23,8 +23,7 @@
   --font-sans: 'Fira Sans', system-ui, sans-serif;
   --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
 
-  --color-mist: #d2d6d5;          /* diagram + alternate card surface */
-  --color-mist-light: #e2e3e0;    /* card surface */
+  --color-mist: #d2d6d5;          /* diagram + project card surface */
 
   --radius-chip: 0.25rem;
 }

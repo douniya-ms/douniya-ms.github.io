@@ -14,8 +14,8 @@ import { Route as SiteRouteImport } from './routes/_site'
 import { Route as SiteIndexRouteImport } from './routes/_site/index'
 import { Route as SiteContactRouteImport } from './routes/_site/contact'
 import { Route as CaseWorkAvatarRouteImport } from './routes/_case/work/avatar'
-import { Route as CaseWorkCadenceRouteImport } from './routes/_case/work/cadence'
-import { Route as CaseWorkYallaAgentRouteImport } from './routes/_case/work/yalla-agent'
+import { Route as CaseWorkRoadAccidentsRouteImport } from './routes/_case/work/road-accidents'
+import { Route as CaseWorkSmartAtsRouteImport } from './routes/_case/work/smart-ats'
 import { Route as SiteWorkIndexRouteImport } from './routes/_site/work/index'
 
 const CaseRoute = CaseRouteImport.update({
@@ -41,14 +41,14 @@ const CaseWorkAvatarRoute = CaseWorkAvatarRouteImport.update({
   path: '/work/avatar',
   getParentRoute: () => CaseRoute,
 } as any)
-const CaseWorkCadenceRoute = CaseWorkCadenceRouteImport.update({
-  id: '/work/cadence',
-  path: '/work/cadence',
+const CaseWorkRoadAccidentsRoute = CaseWorkRoadAccidentsRouteImport.update({
+  id: '/work/road-accidents',
+  path: '/work/road-accidents',
   getParentRoute: () => CaseRoute,
 } as any)
-const CaseWorkYallaAgentRoute = CaseWorkYallaAgentRouteImport.update({
-  id: '/work/yalla-agent',
-  path: '/work/yalla-agent',
+const CaseWorkSmartAtsRoute = CaseWorkSmartAtsRouteImport.update({
+  id: '/work/smart-ats',
+  path: '/work/smart-ats',
   getParentRoute: () => CaseRoute,
 } as any)
 const SiteWorkIndexRoute = SiteWorkIndexRouteImport.update({
@@ -61,16 +61,16 @@ export interface FileRoutesByFullPath {
   '/': typeof SiteIndexRoute
   '/contact': typeof SiteContactRoute
   '/work/avatar': typeof CaseWorkAvatarRoute
-  '/work/cadence': typeof CaseWorkCadenceRoute
-  '/work/yalla-agent': typeof CaseWorkYallaAgentRoute
+  '/work/road-accidents': typeof CaseWorkRoadAccidentsRoute
+  '/work/smart-ats': typeof CaseWorkSmartAtsRoute
   '/work/': typeof SiteWorkIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof SiteIndexRoute
   '/contact': typeof SiteContactRoute
   '/work/avatar': typeof CaseWorkAvatarRoute
-  '/work/cadence': typeof CaseWorkCadenceRoute
-  '/work/yalla-agent': typeof CaseWorkYallaAgentRoute
+  '/work/road-accidents': typeof CaseWorkRoadAccidentsRoute
+  '/work/smart-ats': typeof CaseWorkSmartAtsRoute
   '/work': typeof SiteWorkIndexRoute
 }
 export interface FileRoutesById {
@@ -80,8 +80,8 @@ export interface FileRoutesById {
   '/_site/contact': typeof SiteContactRoute
   '/_site/': typeof SiteIndexRoute
   '/_case/work/avatar': typeof CaseWorkAvatarRoute
-  '/_case/work/cadence': typeof CaseWorkCadenceRoute
-  '/_case/work/yalla-agent': typeof CaseWorkYallaAgentRoute
+  '/_case/work/road-accidents': typeof CaseWorkRoadAccidentsRoute
+  '/_case/work/smart-ats': typeof CaseWorkSmartAtsRoute
   '/_site/work/': typeof SiteWorkIndexRoute
 }
 export interface FileRouteTypes {
@@ -90,16 +90,16 @@ export interface FileRouteTypes {
     | '/'
     | '/contact'
     | '/work/avatar'
-    | '/work/cadence'
-    | '/work/yalla-agent'
+    | '/work/road-accidents'
+    | '/work/smart-ats'
     | '/work/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/contact'
     | '/work/avatar'
-    | '/work/cadence'
-    | '/work/yalla-agent'
+    | '/work/road-accidents'
+    | '/work/smart-ats'
     | '/work'
   id:
     | '__root__'
@@ -108,8 +108,8 @@ export interface FileRouteTypes {
     | '/_site/contact'
     | '/_site/'
     | '/_case/work/avatar'
-    | '/_case/work/cadence'
-    | '/_case/work/yalla-agent'
+    | '/_case/work/road-accidents'
+    | '/_case/work/smart-ats'
     | '/_site/work/'
   fileRoutesById: FileRoutesById
 }
@@ -155,18 +155,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CaseWorkAvatarRouteImport
       parentRoute: typeof CaseRoute
     }
-    '/_case/work/cadence': {
-      id: '/_case/work/cadence'
-      path: '/work/cadence'
-      fullPath: '/work/cadence'
-      preLoaderRoute: typeof CaseWorkCadenceRouteImport
+    '/_case/work/road-accidents': {
+      id: '/_case/work/road-accidents'
+      path: '/work/road-accidents'
+      fullPath: '/work/road-accidents'
+      preLoaderRoute: typeof CaseWorkRoadAccidentsRouteImport
       parentRoute: typeof CaseRoute
     }
-    '/_case/work/yalla-agent': {
-      id: '/_case/work/yalla-agent'
-      path: '/work/yalla-agent'
-      fullPath: '/work/yalla-agent'
-      preLoaderRoute: typeof CaseWorkYallaAgentRouteImport
+    '/_case/work/smart-ats': {
+      id: '/_case/work/smart-ats'
+      path: '/work/smart-ats'
+      fullPath: '/work/smart-ats'
+      preLoaderRoute: typeof CaseWorkSmartAtsRouteImport
       parentRoute: typeof CaseRoute
     }
     '/_site/work/': {
@@ -181,14 +181,14 @@ declare module '@tanstack/react-router' {
 
 interface CaseRouteChildren {
   CaseWorkAvatarRoute: typeof CaseWorkAvatarRoute
-  CaseWorkCadenceRoute: typeof CaseWorkCadenceRoute
-  CaseWorkYallaAgentRoute: typeof CaseWorkYallaAgentRoute
+  CaseWorkRoadAccidentsRoute: typeof CaseWorkRoadAccidentsRoute
+  CaseWorkSmartAtsRoute: typeof CaseWorkSmartAtsRoute
 }
 
 const CaseRouteChildren: CaseRouteChildren = {
   CaseWorkAvatarRoute: CaseWorkAvatarRoute,
-  CaseWorkCadenceRoute: CaseWorkCadenceRoute,
-  CaseWorkYallaAgentRoute: CaseWorkYallaAgentRoute,
+  CaseWorkRoadAccidentsRoute: CaseWorkRoadAccidentsRoute,
+  CaseWorkSmartAtsRoute: CaseWorkSmartAtsRoute,
 }
 
 const CaseRouteWithChildren = CaseRoute._addFileChildren(CaseRouteChildren)

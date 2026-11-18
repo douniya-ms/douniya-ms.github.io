@@ -1,6 +1,8 @@
 import type { ReactNode } from "react";
 import sparklesIcon from "#/assets/icons/sparkles.svg";
-import portrait from "#/assets/portrait.png";
+// Abstract placeholder until there is a real photo. The original photo is kept
+// at src/assets/portrait.png: to use it (or a new one), change this import.
+import portrait from "#/assets/abstract-portrait.jpg";
 import { site } from "#/content/site";
 import { m } from "#/paraglide/messages";
 

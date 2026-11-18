@@ -1,203 +1,129 @@
-Welcome to your new TanStack Start app!
+# Douniya Maayoussi · Portfolio
 
-# Getting Started
+A bilingual (English / French) portfolio built with **TanStack Start (React)**, **Tailwind CSS** and **Paraglide** for translations. It is a fully static site: every page is pre-rendered at build time and served for free by **GitHub Pages**.
 
-To run this application:
+Every push to the `main` branch rebuilds and redeploys the site automatically.
+
+---
+
+## 1. Put the site online (once)
+
+You only do this the first time.
+
+1. **Name the repository `<your-username>.github.io`**
+   Repository → **Settings → General → Repository name**.
+   This exact name is what makes the site live at `https://<your-username>.github.io/`. With any other name, the site would load without its styles and images.
+2. **Make the repository public**
+   **Settings → General → Danger Zone → Change visibility → Public**. GitHub Pages is free only for public repositories.
+3. **Turn on GitHub Pages**
+   **Settings → Pages → Build and deployment → Source: GitHub Actions**.
+   Do **not** click the suggested "Jekyll" or "Static HTML" workflows: the project already has its own (`.github/workflows/deploy.yml`).
+4. **Enable the workflow**
+   Open the **Actions** tab. If GitHub asks, click **"I understand my workflows, go ahead and enable them"**. If "Deploy to GitHub Pages" shows as *disabled*, open it and click **Enable workflow**.
+5. **Run the first deployment**
+   **Actions → Deploy to GitHub Pages → Run workflow**. After 2–3 minutes the run turns green and the site is live at `https://<your-username>.github.io/` (French: `/fr`).
+
+If a run turns red, open it and read the failing step. It is almost always step 3 (Pages source) or step 1 (repository name).
+
+---
+
+## 2. Change something on the site
+
+Change the files, then push to `main`. The site updates by itself in a few minutes (follow it in the **Actions** tab).
+
+| I want to change… | File |
+|---|---|
+| Name, email, phone, GitHub / LinkedIn links | `src/content/site.ts` |
+| Short texts (menu, About, Contact, buttons, project titles and summaries on the Work page) | `messages/en.json` and `messages/fr.json` (same key in both) |
+| The order or the list of projects on the Work page, their tags and images | `src/content/projects.ts` |
+| A case study (the long project page) | `src/content/case-studies/<project>.ts` |
+| Colors, fonts, spacing | `src/styles.css` (the `@theme` block at the top) |
+| The browser tab title | `src/routes/__root.tsx` (`title`) |
+
+### Texts and translations
+
+Every short text exists in both `messages/en.json` and `messages/fr.json`, under the **same key**:
+
+```json
+"contact_heading": "Let’s Build Something Together"   ← en.json
+"contact_heading": "Construisons quelque chose ensemble" ← fr.json
+```
+
+Change the text, never the key. If you add a key in one file, add it to the other one too.
+
+### A case study
+
+Each case study is one file in `src/content/case-studies/`, with an `en` and an `fr` version that have the **same structure**. A page is a list of 6 chapters. Each chapter has:
+
+- `marker`: the small label, e.g. `"01 / The spark"`
+- `title`
+- `layout`: where things go
+  - `"aside-left"`: a visual on the left, text on the right
+  - `"aside-right"`: text on the left, a visual on the right
+  - `"marker-left"`: the label on the left, text on the right
+  - `"full"`: everything stacked, full width
+- `aside` (optional): the visual beside the text. One of `image`, `screenshot` (app screenshots, shown whole on a grey panel with a shadow), `diagram` or `stats` (big numbers).
+- `blocks`: the content, in order. One of `text` (paragraphs), `stats`, `list` (labelled rows), `states` (3 columns), `figure` (a screenshot inside the text) or `question` (the `//` question that ends a chapter).
+
+The easiest way to write a new one is to copy an existing file and change the words.
+
+### Images
+
+Images live in `src/assets/`. Each project uses:
+
+- a **portrait** image for the Work page, shown at **580 × 682**,
+- a **landscape** image for the "Other projects" cards, shown at about **530 × 224**.
+
+Export images at **twice** that size (1160 × 1364 and 1060 × 448), as **JPG**, ideally under 300 KB. To export a frame straight from Figma at the right size:
 
 ```bash
-pnpm install
-pnpm dev
+export FIGMA_TOKEN=your_token   # Figma → Settings → Security → Personal access tokens
+python3 scripts/figma_export.py <node-id> src/assets/projects/<project>/<name>.jpg
 ```
 
-# Building For Production
+The `node-id` is in the frame's link (right-click the frame → **Copy link to selection**). The exported image has the frame's proportions, so make the frame the size of the slot first.
 
-To build this application for production:
+The About and Contact pages use an abstract placeholder image (`src/assets/abstract-portrait.jpg`). To use a real photo, add it to `src/assets/` and change the import at the top of `src/components/Identity.tsx`.
+
+### Add a new project
+
+1. Add its images to `src/assets/projects/<slug>/`.
+2. Add its short texts to both `messages/en.json` and `messages/fr.json` (copy the `project_avatar_…` keys and rename them).
+3. Add it to `src/content/projects.ts` (copy an existing entry). The order of that list is the order on the Work page.
+4. For a full case study: create `src/content/case-studies/<slug>.ts` (copy an existing one) and `src/routes/_case/work/<slug>.tsx` (copy an existing one, change the 3 names inside).
+5. In `vite.config.ts`, add `'/fr/work/<slug>'` to the `pages` list, so the French page is generated too.
+
+Without a case study, leave out `route` and `results` in `projects.ts`: the Work page then shows the project as "Coming soon".
+
+---
+
+## 3. Work on the site locally
+
+You need [Node.js](https://nodejs.org) (version 22 or newer) and [pnpm](https://pnpm.io).
 
 ```bash
-pnpm build
+pnpm install     # once
+pnpm dev         # http://localhost:3000, updates as you save
+pnpm build       # the real production build, run it before pushing big changes
 ```
 
-## Styling
+If `pnpm build` fails, the deployment would fail too, so fix the error before pushing.
 
-This project uses [Tailwind CSS](https://tailwindcss.com/) for styling.
+---
 
-### Removing Tailwind CSS
+## 4. Project structure
 
-If you prefer not to use Tailwind CSS:
-
-1. Remove the demo pages in `src/routes/demo/`
-2. Replace the Tailwind import in `src/styles.css` with your own styles
-3. Remove `tailwindcss()` from the plugins array in `vite.config.ts`
-4. Remove `@tailwindcss/vite` and `tailwindcss` from `package.json`
-
-## Linting & Formatting
-
-This project uses [Biome](https://biomejs.dev/) for linting and formatting. The following scripts are available:
-
-
-```bash
-pnpm lint
-pnpm format
-pnpm check
 ```
-
-
-# Paraglide i18n
-
-This add-on wires up ParaglideJS for localized routing and message formatting.
-
-- Messages live in `project.inlang/messages`.
-- URLs are localized through the Paraglide Vite plugin and router `rewrite` hooks.
-- Run the dev server or build to regenerate the `src/paraglide` outputs.
-
-
-
-## Routing
-
-This project uses [TanStack Router](https://tanstack.com/router) with file-based routing. Routes are managed as files in `src/routes`.
-
-### Adding A Route
-
-To add a new route to your application just add a new file in the `./src/routes` directory.
-
-TanStack will automatically generate the content of the route file for you.
-
-Now that you have two routes you can use a `Link` component to navigate between them.
-
-### Adding Links
-
-To use SPA (Single Page Application) navigation you will need to import the `Link` component from `@tanstack/react-router`.
-
-```tsx
-import { Link } from "@tanstack/react-router";
+messages/              EN/FR texts
+src/
+  assets/              images and icons
+  components/          building blocks (header, footer, Work controls…)
+  components/case/     the case-study page builder
+  content/             site info, project list, case-study texts
+  routes/              one file per page
+    _site/             About, Work, Contact
+    _case/work/        one file per case study
+  styles.css           design tokens, fonts, animations
+scripts/figma_export.py
+.github/workflows/deploy.yml   builds and deploys on every push to main
 ```
-
-Then anywhere in your JSX you can use it like so:
-
-```tsx
-<Link to="/about">About</Link>
-```
-
-This will create a link that will navigate to the `/about` route.
-
-More information on the `Link` component can be found in the [Link documentation](https://tanstack.com/router/v1/docs/framework/react/api/router/linkComponent).
-
-### Using A Layout
-
-In the File Based Routing setup the layout is located in `src/routes/__root.tsx`. Anything you add to the root route will appear in all the routes. The route content will appear in the JSX where you render `{children}` in the `shellComponent`.
-
-Here is an example layout that includes a header:
-
-```tsx
-import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router'
-
-export const Route = createRootRoute({
-  head: () => ({
-    meta: [
-      { charSet: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { title: 'My App' },
-    ],
-  }),
-  shellComponent: ({ children }) => (
-    <html lang="en">
-      <head>
-        <HeadContent />
-      </head>
-      <body>
-        <header>
-          <nav>
-            <Link to="/">Home</Link>
-            <Link to="/about">About</Link>
-          </nav>
-        </header>
-        {children}
-        <Scripts />
-      </body>
-    </html>
-  ),
-})
-```
-
-More information on layouts can be found in the [Layouts documentation](https://tanstack.com/router/latest/docs/framework/react/guide/routing-concepts#layouts).
-
-## Server Functions
-
-TanStack Start provides server functions that allow you to write server-side code that seamlessly integrates with your client components.
-
-```tsx
-import { createServerFn } from '@tanstack/react-start'
-
-const getServerTime = createServerFn({
-  method: 'GET',
-}).handler(async () => {
-  return new Date().toISOString()
-})
-
-// Use in a component
-function MyComponent() {
-  const [time, setTime] = useState('')
-  
-  useEffect(() => {
-    getServerTime().then(setTime)
-  }, [])
-  
-  return <div>Server time: {time}</div>
-}
-```
-
-## API Routes
-
-You can create API routes by using the `server` property in your route definitions:
-
-```tsx
-import { createFileRoute } from '@tanstack/react-router'
-import { json } from '@tanstack/react-start'
-
-export const Route = createFileRoute('/api/hello')({
-  server: {
-    handlers: {
-      GET: () => json({ message: 'Hello, World!' }),
-    },
-  },
-})
-```
-
-## Data Fetching
-
-There are multiple ways to fetch data in your application. You can use TanStack Query to fetch data from a server. But you can also use the `loader` functionality built into TanStack Router to load the data for a route before it's rendered.
-
-For example:
-
-```tsx
-import { createFileRoute } from '@tanstack/react-router'
-
-export const Route = createFileRoute('/people')({
-  loader: async () => {
-    const response = await fetch('https://swapi.dev/api/people')
-    return response.json()
-  },
-  component: PeopleComponent,
-})
-
-function PeopleComponent() {
-  const data = Route.useLoaderData()
-  return (
-    <ul>
-      {data.results.map((person) => (
-        <li key={person.name}>{person.name}</li>
-      ))}
-    </ul>
-  )
-}
-```
-
-Loaders simplify your data fetching logic dramatically. Check out more information in the [Loader documentation](https://tanstack.com/router/latest/docs/framework/react/guide/data-loading#loader-parameters).
-
-
-
-# Learn More
-
-You can learn more about all of the offerings from TanStack in the [TanStack documentation](https://tanstack.com).
-
-For TanStack Start specific documentation, visit [TanStack Start](https://tanstack.com/start).

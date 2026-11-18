@@ -20,8 +20,8 @@ const last = projects.length - 1;
 /**
  * Holds the current project on the Work page.
  * It lives in the root route, above both the _site and _case layouts, so it
- * survives moving between them: open Cadence's case study, go back, and Work
- * is still on Cadence. (A full page reload starts again at the first project.)
+ * survives moving between them: open Avatar's case study, go back, and Work
+ * is still on Avatar. (A full page reload starts again at the first project.)
  */
 export function WorkNavigationProvider({ children }: { children: ReactNode }) {
 	const [index, setIndex] = useState(0);

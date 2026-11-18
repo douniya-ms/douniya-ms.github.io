@@ -1,221 +1,337 @@
-/**
- * AVATAR case study copy. The page layout lives in src/routes/_case/work/avatar.tsx;
- * only the words live here, so translating means filling in `fr` below.
- */
+/** AVATAR: case study copy, from Douniya's answers. */
+import avatarMockup from "#/assets/projects/avatar/Avatar.jpg";
+import type { CaseCopy } from "#/components/case/types";
 
-const en = {
+const en: CaseCopy = {
 	intro:
-		"From a signal on the wrist to a clearer picture on the phone. AVATAR brings an AI-powered smart bracelet and a mobile healthcare platform together to monitor asthma-related vital signs in real time.",
-	aim: "The aim: explore how connected sensing and machine learning could flag changing risk before a situation becomes critical.",
-	tags: ["AI / ML", "IoT", "Mobile", "Cloud"],
-	readingCue: "The idea, the system, the learning",
+		"It started with a friend, and an asthma attack that was frightening to watch. AVATAR is our answer: a connected bracelet that watches three vital signs, sorts the risk into three levels, and calls for help when it turns critical.",
+	aim: "The aim: connect a sensor, a cloud backend, an AI model and a mobile app into one system that alerts loved ones before it’s too late.",
+	tags: ["IoT", "Artificial Intelligence", "Cloud Computing", "Mobile"],
+	readingCue: "The why, the system, the teamwork",
 	facts: [
-		{ label: "Focus", value: "AI | Data | Connected health" },
-		{ label: "My role", value: "Data Engineer" },
-		{ label: "Collaboration", value: "Team of 4" },
+		{ label: "Focus", value: "IoT | AI | Cloud Computing" },
+		{ label: "My role", value: "AI model (Fuzzy C-Means)" },
+		{ label: "Collaboration", value: "Team project" },
 	],
-
-	intention: {
-		marker: "01 / The intention",
-		title: "Make the numbers mean something.",
-		paragraphs: [
-			"A useful starting question for AVATAR is simple: what happens between collecting a health signal and knowing that it deserves attention? Heart rate, oxygen saturation and respiratory rate are more useful when they can be read together, in context, rather than as isolated numbers.",
-			"That is the human purpose behind the system: connect continuous monitoring with an understandable mobile view and an alert pathway. Earlier awareness is the goal, not a proven medical outcome. The project explores predictive risk; it does not establish a clinically validated prediction tool.",
-		],
-		question:
-			"A small question with a big engineering footprint: what should happen after a reading?",
-		imageAlt: "AVATAR app screens: emergency contacts and live vital signs",
-		caption: "AVATAR / Mobile experience",
-		captionDetail: "Vitals + care network",
-	},
-
-	startingPoint: {
-		marker: "02 / Starting point",
-		title: "One connected experience.",
-		paragraphs: [
-			"AVATAR is described as an integrated system: an ESP32-based bracelet, a Flutter app and a cloud-connected backend. The work is best understood as connecting these layers into a coherent journey, rather than inventing every underlying technology from scratch.",
-			"Established tools provide the building blocks. The project-specific problem is how readings move through them, how risk is represented and how alerts stay consistent. The interesting work sits at these hand-offs: making separate technologies feel like one system.",
-		],
-	},
-
-	underTheHood: {
-		marker: "03 / Under the hood",
-		title: "From sensing to understanding.",
-		paragraphs: [
-			"The IoT bracelet is the sensing layer for heart rate, SpO₂ and respiratory rate. Cloud connectivity links the wearable and mobile experience. FastAPI provides the service layer, while Supabase supports data storage and backend needs. Flutter brings the information together on the phone.",
-			"Fuzzy C-Means adds a machine-learning layer for grouping readings by similarity, with degrees of membership rather than only hard boundaries. Turning those groups into Normal, Warning and Critical states needs careful interpretation; clustering alone cannot validate asthma prediction.",
-		],
-		diagram: {
-			title: "The system at a glance",
-			annotation: "Conceptual data flow",
-			layers: [
-				{ label: "01 / ESP32 + IoT", text: "Sense heart rate, SpO₂ and respiratory rate." },
-				{ label: "02 / Cloud backend", text: "FastAPI services + Supabase data support." },
-				{ label: "03 / Fuzzy C-Means", text: "Group signals to explore risk states." },
-				{ label: "04 / Flutter", text: "Show vitals, risk labels and alert pathways." },
+	chapters: [
+		{
+			marker: "01 / The spark",
+			title: "It started with a friend.",
+			layout: "aside-left",
+			aside: {
+				kind: "image",
+				src: avatarMockup,
+				alt: "AVATAR app screens: emergency contacts and live vital signs",
+				caption: "AVATAR / Mobile experience",
+				detail: "Vitals + care network",
+			},
+			blocks: [
+				{
+					kind: "text",
+					paragraphs: [
+						"A friend of mine has asthma. I’ve seen how frightening an attack can be, for her and for everyone around her, and how helpless you feel when all you can do is watch.",
+						"With my team, we wanted to imagine something that keeps watch when no one else can: a system that monitors her condition and alerts the people close to her when it matters. What drove me was using AI on a problem that touches people’s lives directly.",
+					],
+				},
+				{
+					kind: "question",
+					text: "What should a device do in the seconds between “something is wrong” and “someone is on the way”?",
+				},
 			],
-			caption:
-				"Different technologies, one thread: keep the meaning of a reading intact as it moves through the system.",
 		},
-	},
-
-	experience: {
-		marker: "04 / The experience",
-		title: "Not just another number on a screen.",
-		paragraphs: [
-			"The defining idea is continuity: live vital signs, AI-powered risk detection and a smart alert and emergency escalation system belong to the same experience. The existing mobile mockup brings a vitals overview alongside a care network, making the connection between monitoring and response visible.",
-			"Rather than claiming to outperform existing approaches, AVATAR focuses on joining the wearable-to-mobile journey and making risk states understandable. A label should explain the system’s interpretation, not pretend to be a diagnosis.",
-		],
-		states: [
-			{ label: "Normal", text: "A stable-state label for the monitoring view." },
-			{ label: "Warning", text: "A change that the system aims to flag for attention." },
-			{ label: "Critical", text: "The state intended to trigger emergency escalation." },
-		],
-	},
-
-	hardPart: {
-		marker: "05 / The hard part",
-		title: "A working pipeline is not yet a trustworthy signal.",
-		paragraphs: [
-			"For a system like AVATAR, the hardest boundary is likely the one between a noisy sensor reading and a meaningful alert. A movement artefact, a delayed update or a value near a risk boundary could make the app feel uncertain—even when each technical layer works on its own.",
-			"This is where the engineering thinking needs to slow down. Before tuning the model, trace a reading end to end: what was measured, when did it arrive, how was it grouped and why did the displayed state change? These are the likely sticking points to investigate first.",
-		],
-		considerations: [
-			{
-				label: "Signal quality",
-				text: "Start with missing, stale and noisy readings. A questionable input should not silently become a confident risk label.",
+		{
+			marker: "02 / What makes it different",
+			title: "Four technologies, one bracelet.",
+			layout: "aside-right",
+			aside: {
+				kind: "stats",
+				items: [
+					{ value: "3", label: "Vital signs monitored" },
+					{ value: "3", label: "Risk levels" },
+					{ value: "4", label: "Technologies in one system" },
+				],
 			},
-			{
-				label: "State consistency",
-				text: "Review how cluster membership maps to a state. Check boundary cases so the backend and mobile view tell the same story.",
+			blocks: [
+				{
+					kind: "text",
+					paragraphs: [
+						"AVATAR combines IoT, artificial intelligence, cloud computing and a mobile app in a single system. Our bracelet, simulated with an ESP32, watches three parameters: blood oxygen, heart rate and respiratory rate.",
+						"I used Fuzzy C-Means to classify the risk into three levels. When it turns critical, the system can automatically alert emergency contacts.",
+					],
+				},
+				{
+					kind: "states",
+					items: [
+						{ label: "Normal", text: "Stable readings, shown in the monitoring view." },
+						{ label: "Warning", text: "A change worth watching, flagged for attention." },
+						{ label: "Critical", text: "Emergency contacts are alerted automatically." },
+					],
+				},
+				{
+					kind: "question",
+					text: "Should a reading that is 70% “warning” and 30% “critical” be treated as a warning, or as an emergency?",
+				},
+			],
+		},
+		{
+			marker: "03 / My part",
+			title: "A team, and my piece of it.",
+			layout: "aside-right",
+			aside: {
+				kind: "diagram",
+				title: "The system at a glance",
+				annotation: "From wrist to alert",
+				layers: [
+					{ label: "01 / ESP32 + Wokwi + C++", text: "Simulate the bracelet and its three sensors." },
+					{ label: "02 / Supabase + PostgreSQL", text: "Receive and store the readings in the cloud." },
+					{ label: "03 / FastAPI + Fuzzy C-Means", text: "Classify each reading: normal, warning or critical." },
+					{ label: "04 / Flutter + Dart", text: "Show the vitals and alert emergency contacts." },
+				],
+				caption: "Different technologies, one thread: keep the meaning of a reading intact from the wrist to the alert.",
 			},
-			{
-				label: "Alert coherence",
-				text: "Trace the alert pathway separately from the live display. Repeated updates should not become confusing, repeated alarms.",
-			},
-		],
-		closing:
-			"A sensible path through these obstacles is to test each hand-off independently, then reconnect the whole flow. It makes the problem smaller and the reasoning easier to explain. The next question becomes specific: is the uncertainty coming from the input, the model or the way the result is shown?",
-	},
-
-	forward: {
-		marker: "06 / Taking it forward",
-		title: "The learning lives between the layers.",
-		lesson:
-			"The lesson this architecture points toward is that model choice is only one part of an AI product. Data quality, clear service boundaries and the words shown to a person all shape whether the output is understandable. A polished interface cannot compensate for an unclear signal.",
-		next: "For later AI and data projects, the reflection to carry forward is practical: define the data contract early, make uncertainty visible and build small, testable steps before adding complexity. That is a useful foundation for a junior engineer—stay curious, but be precise about what the system can and cannot claim.",
-		questionLabel: "Still worth asking",
-		question: "Can someone understand the system’s uncertainty as clearly as its output?",
-	},
+			blocks: [
+				{
+					kind: "text",
+					paragraphs: [
+						"AVATAR was a team project. We started by analysing the needs together, then each of us took the part she knew best.",
+						"Mine was the AI model: using Fuzzy C-Means, with Python and scikit-learn, to classify physiological readings by risk level. Then we came back together to integrate every piece into one system.",
+					],
+				},
+				{ kind: "question", text: "When each person builds a different part, who owns the moment those parts meet?" },
+			],
+		},
+		{
+			marker: "04 / The hard part",
+			title: "Every part worked. Together, they didn’t.",
+			layout: "full",
+			blocks: [
+				{
+					kind: "text",
+					paragraphs: [
+						"The hardest part wasn’t any single technology. It was integration: making the ESP32 bracelet, the cloud, the backend, the AI model and the Flutter app talk to each other.",
+						"Each part worked on its own. Bringing them together into one system took far more coordination than any of us expected.",
+					],
+				},
+				{
+					kind: "stats",
+					items: [
+						{ value: "5", label: "Components to connect" },
+						{ value: "1", label: "Pipeline, sensor to alert" },
+					],
+				},
+				{ kind: "question", text: "Where does a reading get lost when every layer swears it passed it on?" },
+			],
+		},
+		{
+			marker: "05 / Finding a way through",
+			title: "One hand-off at a time.",
+			layout: "full",
+			blocks: [
+				{
+					kind: "text",
+					paragraphs: ["We decided to tackle integration together, testing each component step by step instead of all at once:"],
+				},
+				{
+					kind: "list",
+					items: [
+						{ label: "1 · Data in", text: "Check that readings from the simulated bracelet reach Supabase." },
+						{ label: "2 · Prediction", text: "Check that FastAPI returns the right risk level for those readings." },
+						{ label: "3 · Alerts", text: "Check that Flutter shows the result and triggers the alerts." },
+					],
+				},
+				{
+					kind: "text",
+					paragraphs: ["That method got the full pipeline working, from the simulated sensor all the way to the alerts."],
+				},
+				{ kind: "question", text: "Which test would you write first if a real patient wore the bracelet tomorrow?" },
+			],
+		},
+		{
+			marker: "06 / What it taught me",
+			title: "The learning lives between the layers.",
+			layout: "marker-left",
+			blocks: [
+				{
+					kind: "text",
+					paragraphs: [
+						"Above all, this project taught me teamwork: collaborating with people who build different parts of the same system, and agreeing on how those parts meet.",
+						"I also learned how to plug an AI model into IoT and the cloud, in a field as sensitive as health, where a wrong label isn’t just a bug: it’s a worried family.",
+					],
+				},
+				{
+					kind: "question",
+					label: "Still worth asking",
+					text: "Can someone understand the system’s uncertainty as clearly as its output?",
+				},
+			],
+		},
+	],
 };
 
-export type AvatarCopy = typeof en;
-
-/** French draft, written to check the layout. Have Douniya review the wording. */
-const fr: AvatarCopy = {
+const fr: CaseCopy = {
 	intro:
-		"D’un signal au poignet à une vision plus claire sur le téléphone. AVATAR réunit un bracelet connecté alimenté par l’IA et une plateforme de santé mobile pour suivre en temps réel les signes vitaux liés à l’asthme.",
-	aim: "L’objectif : explorer comment les capteurs connectés et l’apprentissage automatique peuvent signaler un risque qui évolue, avant qu’une situation ne devienne critique.",
-	tags: ["IA / ML", "IoT", "Mobile", "Cloud"],
-	readingCue: "L’idée, le système, les apprentissages",
+		"Tout a commencé avec une amie, et une crise d’asthme impressionnante à voir. AVATAR est notre réponse : un bracelet connecté qui surveille trois signes vitaux, classe le risque en trois niveaux et donne l’alerte quand il devient critique.",
+	aim: "L’objectif : relier un capteur, un backend cloud, un modèle d’IA et une application mobile en un seul système capable d’alerter les proches avant qu’il ne soit trop tard.",
+	tags: ["IoT", "Intelligence artificielle", "Cloud Computing", "Mobile"],
+	readingCue: "Le pourquoi, le système, le travail d’équipe",
 	facts: [
-		{ label: "Domaine", value: "IA | Données | Santé connectée" },
-		{ label: "Mon rôle", value: "Ingénieure données" },
-		{ label: "Collaboration", value: "Équipe de 4" },
+		{ label: "Domaine", value: "IoT | IA | Cloud Computing" },
+		{ label: "Mon rôle", value: "Modèle d’IA (Fuzzy C-Means)" },
+		{ label: "Collaboration", value: "Projet d’équipe" },
 	],
-
-	intention: {
-		marker: "01 / L’intention",
-		title: "Donner du sens aux chiffres.",
-		paragraphs: [
-			"Pour AVATAR, une question de départ utile est simple : que se passe-t-il entre la collecte d’un signal de santé et le moment où l’on sait qu’il mérite de l’attention ? La fréquence cardiaque, la saturation en oxygène et la fréquence respiratoire sont plus utiles lues ensemble, en contexte, que comme des chiffres isolés.",
-			"C’est la raison d’être humaine du système : relier un suivi continu à une vue mobile compréhensible et à un circuit d’alerte. L’objectif est une prise de conscience plus précoce, pas un résultat médical prouvé. Le projet explore le risque prédictif ; il ne constitue pas un outil de prédiction validé cliniquement.",
-		],
-		question:
-			"Une petite question aux grandes conséquences techniques : que doit-il se passer après une mesure ?",
-		imageAlt: "Écrans de l’application AVATAR : contacts d’urgence et signes vitaux en direct",
-		caption: "AVATAR / Expérience mobile",
-		captionDetail: "Signes vitaux + réseau de soin",
-	},
-
-	startingPoint: {
-		marker: "02 / Point de départ",
-		title: "Une seule expérience connectée.",
-		paragraphs: [
-			"AVATAR est présenté comme un système intégré : un bracelet basé sur un ESP32, une application Flutter et un backend connecté au cloud. Le travail consiste surtout à relier ces couches en un parcours cohérent, plutôt qu’à réinventer chaque technologie de zéro.",
-			"Des outils éprouvés fournissent les briques de base. Le vrai problème du projet, c’est la façon dont les mesures les traversent, dont le risque est représenté et dont les alertes restent cohérentes. Le travail intéressant se situe à ces points de passage : faire de technologies distinctes un seul système.",
-		],
-	},
-
-	underTheHood: {
-		marker: "03 / Sous le capot",
-		title: "De la mesure à la compréhension.",
-		paragraphs: [
-			"Le bracelet IoT est la couche de capteurs pour la fréquence cardiaque, la SpO₂ et la fréquence respiratoire. La connexion cloud relie le bracelet à l’expérience mobile. FastAPI fournit la couche de services, tandis que Supabase gère le stockage des données et les besoins du backend. Flutter rassemble le tout sur le téléphone.",
-			"Fuzzy C-Means ajoute une couche d’apprentissage automatique qui regroupe les mesures par similarité, avec des degrés d’appartenance plutôt que des frontières strictes. Transformer ces groupes en états Normal, Alerte et Critique demande une interprétation prudente ; le clustering seul ne peut pas valider une prédiction de l’asthme.",
-		],
-		diagram: {
-			title: "Le système en un coup d’œil",
-			annotation: "Flux de données conceptuel",
-			layers: [
-				{ label: "01 / ESP32 + IoT", text: "Mesurer la fréquence cardiaque, la SpO₂ et la fréquence respiratoire." },
-				{ label: "02 / Backend cloud", text: "Services FastAPI + données sur Supabase." },
-				{ label: "03 / Fuzzy C-Means", text: "Regrouper les signaux pour explorer les états de risque." },
-				{ label: "04 / Flutter", text: "Afficher les signes vitaux, les niveaux de risque et les alertes." },
+	chapters: [
+		{
+			marker: "01 / L’étincelle",
+			title: "Tout a commencé avec une amie.",
+			layout: "aside-left",
+			aside: {
+				kind: "image",
+				src: avatarMockup,
+				alt: "Écrans de l’application AVATAR : contacts d’urgence et signes vitaux en direct",
+				caption: "AVATAR / Expérience mobile",
+				detail: "Signes vitaux + réseau de soin",
+			},
+			blocks: [
+				{
+					kind: "text",
+					paragraphs: [
+						"Ce projet est né d’une situation personnelle : une amie souffre d’asthme, et j’ai vu à quel point une crise pouvait être inquiétante, pour elle comme pour son entourage, et à quel point on se sent impuissant quand on ne peut que regarder.",
+						"Avec mon équipe, on a voulu imaginer une solution qui veille quand personne d’autre ne le peut : surveiller son état de santé et alerter ses proches en cas de danger. Ce qui m’a motivée, c’était d’utiliser l’IA sur un problème qui touche directement la vie des personnes.",
+					],
+				},
+				{
+					kind: "question",
+					text: "Que doit faire un appareil dans les secondes entre « quelque chose ne va pas » et « quelqu’un arrive » ?",
+				},
 			],
-			caption:
-				"Des technologies différentes, un même fil : préserver le sens d’une mesure tout au long du système.",
 		},
-	},
-
-	experience: {
-		marker: "04 / L’expérience",
-		title: "Pas un chiffre de plus sur un écran.",
-		paragraphs: [
-			"L’idée centrale est la continuité : signes vitaux en direct, détection du risque par l’IA et système d’alerte et d’escalade d’urgence font partie de la même expérience. La maquette mobile existante place la vue des signes vitaux à côté d’un réseau de soin, rendant visible le lien entre le suivi et la réponse.",
-			"Plutôt que de prétendre surpasser les approches existantes, AVATAR se concentre sur le parcours du bracelet au téléphone et sur des états de risque compréhensibles. Un libellé doit expliquer l’interprétation du système, pas se faire passer pour un diagnostic.",
-		],
-		states: [
-			{ label: "Normal", text: "Un état stable, affiché dans la vue de suivi." },
-			{ label: "Alerte", text: "Un changement que le système cherche à signaler." },
-			{ label: "Critique", text: "L’état qui doit déclencher l’escalade d’urgence." },
-		],
-	},
-
-	hardPart: {
-		marker: "05 / Le plus difficile",
-		title: "Un pipeline qui fonctionne n’est pas encore un signal fiable.",
-		paragraphs: [
-			"Pour un système comme AVATAR, la frontière la plus difficile est sans doute celle entre une mesure bruitée et une alerte pertinente. Un artefact de mouvement, une mise à jour en retard ou une valeur proche d’un seuil de risque peuvent rendre l’application peu fiable, même quand chaque couche technique fonctionne de son côté.",
-			"C’est là que la réflexion doit ralentir. Avant d’ajuster le modèle, suivre une mesure de bout en bout : qu’a-t-on mesuré, quand est-ce arrivé, comment a-t-elle été regroupée et pourquoi l’état affiché a-t-il changé ? Ce sont les points de blocage probables à examiner en premier.",
-		],
-		considerations: [
-			{
-				label: "Qualité du signal",
-				text: "Commencer par les mesures manquantes, périmées et bruitées. Une donnée douteuse ne doit pas devenir en silence un niveau de risque affirmé.",
+		{
+			marker: "02 / Ce qui le distingue",
+			title: "Quatre technologies, un bracelet.",
+			layout: "aside-right",
+			aside: {
+				kind: "stats",
+				items: [
+					{ value: "3", label: "Signes vitaux surveillés" },
+					{ value: "3", label: "Niveaux de risque" },
+					{ value: "4", label: "Technologies dans un seul système" },
+				],
 			},
-			{
-				label: "Cohérence des états",
-				text: "Vérifier comment l’appartenance aux clusters se traduit en état. Tester les cas limites pour que le backend et l’application racontent la même histoire.",
+			blocks: [
+				{
+					kind: "text",
+					paragraphs: [
+						"La particularité d’AVATAR, c’est qu’il combine l’IoT, l’IA, le Cloud Computing et une application mobile. Notre bracelet, simulé avec un ESP32, surveille trois paramètres : l’oxygène dans le sang, la fréquence cardiaque et la fréquence respiratoire.",
+						"J’ai utilisé Fuzzy C-Means pour classer le risque en trois niveaux. En cas de risque critique, le système peut alerter automatiquement les contacts d’urgence.",
+					],
+				},
+				{
+					kind: "states",
+					items: [
+						{ label: "Normal", text: "Des mesures stables, affichées dans la vue de suivi." },
+						{ label: "Alerte", text: "Un changement à surveiller, signalé à l’utilisateur." },
+						{ label: "Critique", text: "Les contacts d’urgence sont alertés automatiquement." },
+					],
+				},
+				{
+					kind: "question",
+					text: "Une mesure à 70 % « alerte » et 30 % « critique » doit-elle être traitée comme une alerte, ou comme une urgence ?",
+				},
+			],
+		},
+		{
+			marker: "03 / Ma part",
+			title: "Une équipe, et ma pièce du puzzle.",
+			layout: "aside-right",
+			aside: {
+				kind: "diagram",
+				title: "Le système en un coup d’œil",
+				annotation: "Du poignet à l’alerte",
+				layers: [
+					{ label: "01 / ESP32 + Wokwi + C++", text: "Simuler le bracelet et ses trois capteurs." },
+					{ label: "02 / Supabase + PostgreSQL", text: "Recevoir et stocker les mesures dans le cloud." },
+					{ label: "03 / FastAPI + Fuzzy C-Means", text: "Classer chaque mesure : normal, alerte ou critique." },
+					{ label: "04 / Flutter + Dart", text: "Afficher les signes vitaux et alerter les contacts d’urgence." },
+				],
+				caption: "Des technologies différentes, un même fil : préserver le sens d’une mesure, du poignet jusqu’à l’alerte.",
 			},
-			{
-				label: "Cohérence des alertes",
-				text: "Suivre le circuit d’alerte séparément de l’affichage en direct. Des mises à jour répétées ne doivent pas devenir des alarmes répétées et confuses.",
-			},
-		],
-		closing:
-			"Une approche raisonnable consiste à tester chaque point de passage séparément, puis à reconnecter l’ensemble du flux. Le problème devient plus petit et le raisonnement plus facile à expliquer. La question suivante devient précise : l’incertitude vient-elle de la donnée, du modèle ou de la façon dont le résultat est affiché ?",
-	},
-
-	forward: {
-		marker: "06 / Pour la suite",
-		title: "L’apprentissage se joue entre les couches.",
-		lesson:
-			"La leçon de cette architecture : le choix du modèle n’est qu’une partie d’un produit d’IA. La qualité des données, des frontières claires entre services et les mots montrés à une personne déterminent ensemble si le résultat est compréhensible. Une interface soignée ne compense pas un signal flou.",
-		next: "Pour les prochains projets d’IA et de données, la réflexion à retenir est concrète : définir tôt le contrat de données, rendre l’incertitude visible et avancer par petites étapes testables avant d’ajouter de la complexité. Une bonne base pour une ingénieure junior : rester curieuse, mais précise sur ce que le système peut et ne peut pas affirmer.",
-		questionLabel: "À se demander encore",
-		question: "Peut-on comprendre l’incertitude du système aussi clairement que son résultat ?",
-	},
+			blocks: [
+				{
+					kind: "text",
+					paragraphs: [
+						"Ce projet a été réalisé en équipe. On a commencé par analyser les besoins ensemble, puis chacune a travaillé sur la partie qu’elle maîtrisait le mieux.",
+						"Pour ma part, je me suis occupée du modèle d’IA : l’algorithme Fuzzy C-Means, avec Python et scikit-learn, pour classer les données physiologiques selon le niveau de risque. On a ensuite travaillé ensemble pour intégrer toutes les parties du système.",
+					],
+				},
+				{ kind: "question", text: "Quand chacune construit une partie différente, qui est responsable du moment où elles se rencontrent ?" },
+			],
+		},
+		{
+			marker: "04 / Le plus difficile",
+			title: "Chaque partie fonctionnait. Ensemble, non.",
+			layout: "full",
+			blocks: [
+				{
+					kind: "text",
+					paragraphs: [
+						"La plus grande difficulté n’était pas une technologie en particulier, mais l’intégration : faire communiquer le bracelet ESP32, le cloud, le backend, le modèle d’IA et l’application Flutter.",
+						"Chaque partie fonctionnait séparément. Les réunir dans un seul système a demandé bien plus de coordination que prévu.",
+					],
+				},
+				{
+					kind: "stats",
+					items: [
+						{ value: "5", label: "Composants à relier" },
+						{ value: "1", label: "Pipeline, du capteur à l’alerte" },
+					],
+				},
+				{ kind: "question", text: "Où se perd une mesure quand chaque couche jure l’avoir transmise ?" },
+			],
+		},
+		{
+			marker: "05 / Trouver la voie",
+			title: "Un passage de relais à la fois.",
+			layout: "full",
+			blocks: [
+				{
+					kind: "text",
+					paragraphs: ["On a décidé de travailler ensemble sur l’intégration, en testant chaque composant progressivement plutôt que tout à la fois :"],
+				},
+				{
+					kind: "list",
+					items: [
+						{ label: "1 · Données", text: "Vérifier que les mesures du bracelet simulé arrivent bien dans Supabase." },
+						{ label: "2 · Prédiction", text: "Vérifier que FastAPI renvoie le bon niveau de risque pour ces mesures." },
+						{ label: "3 · Alertes", text: "Vérifier que Flutter affiche le résultat et déclenche les alertes." },
+					],
+				},
+				{
+					kind: "text",
+					paragraphs: ["Cette méthode nous a permis de faire fonctionner le pipeline complet, du capteur simulé jusqu’aux alertes."],
+				},
+				{ kind: "question", text: "Quel test écririez-vous en premier si une vraie patiente portait le bracelet demain ?" },
+			],
+		},
+		{
+			marker: "06 / Ce que j’en retiens",
+			title: "L’apprentissage se joue entre les couches.",
+			layout: "marker-left",
+			blocks: [
+				{
+					kind: "text",
+					paragraphs: [
+						"Ce projet m’a surtout appris à travailler en équipe : collaborer avec des personnes qui développent différentes parties d’un même système, et s’accorder sur la façon dont elles se rejoignent.",
+						"J’ai aussi découvert comment intégrer un modèle d’IA avec l’IoT et le cloud, dans un domaine aussi sensible que la santé, où une mauvaise étiquette n’est pas qu’un bug : c’est une famille inquiète.",
+					],
+				},
+				{
+					kind: "question",
+					label: "À se demander encore",
+					text: "Peut-on comprendre l’incertitude du système aussi clairement que son résultat ?",
+				},
+			],
+		},
+	],
 };
 
 export const avatarCopy = { en, fr };

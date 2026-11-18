@@ -80,12 +80,17 @@ function Work() {
 						<span aria-hidden className="type-mono text-moss-ink">
 							//
 						</span>
-						<div className="flex flex-1 flex-col gap-[7px]">
-							<p className="type-mono uppercase text-moss-ink">{m.project_results()}</p>
-							<p className="type-body text-ink">{project.results()}</p>
-						</div>
+						{project.results ? (
+							<div className="flex flex-1 flex-col gap-[7px]">
+								<p className="type-mono uppercase text-moss-ink">{m.project_results()}</p>
+								<p className="type-body text-ink">{project.results()}</p>
+							</div>
+						) : (
+							<ComingSoon />
+						)}
 					</div>
 
+					{project.route && (
 					<Link
 						to={project.route}
 						className="group type-mono mt-auto ml-auto flex animate-fade-up items-center gap-3 py-2 text-marine"
@@ -99,6 +104,7 @@ function Work() {
 							<LongArrow className="group-hover:animate-arrow-loop group-focus-visible:animate-arrow-loop" />
 						</span>
 					</Link>
+					)}
 				</Fragment>
 			</section>
 
@@ -122,6 +128,26 @@ function Work() {
 				</ul>
 				<ProjectControls tone="onMoss" />
 			</div>
+		</div>
+	);
+}
+
+/**
+ * Shown in place of "Results" for a project without a case study yet:
+ * a status line with a pulsing moss square, then a short note.
+ */
+function ComingSoon() {
+	return (
+		<div className="flex flex-1 flex-col gap-[7px]">
+			<p className="type-mono uppercase text-moss-ink">{m.work_status()}</p>
+			<p className="flex items-center gap-3">
+				<span aria-hidden className="relative grid size-2.5 place-items-center">
+					<span className="absolute inset-0 animate-ping bg-moss opacity-60" />
+					<span className="relative size-2.5 bg-moss" />
+				</span>
+				<span className="type-quote text-marine">{m.work_coming_soon()}</span>
+			</p>
+			<p className="type-body text-ink">{m.work_coming_soon_text()}</p>
 		</div>
 	);
 }

@@ -29,9 +29,9 @@ const config = defineConfig({
       pages: [
         '/',
         '/fr',
+        '/fr/work/smart-ats',
         '/fr/work/avatar',
-        '/fr/work/cadence',
-        '/fr/work/yalla-agent',
+        '/fr/work/road-accidents',
       ].map((path) => ({ path })),
     }),
     viteReact(),

@@ -23,29 +23,38 @@ export function OtherProjects({ current }: { current: ProjectCard["slug"] }) {
 			</div>
 
 			<ul className="grid gap-8 lg:grid-cols-2">
-				{others.map((project, i) => (
+				{others.map((project) => (
 					<li key={project.slug}>
-						<Link
-							to={project.route}
-							className={`group flex h-full flex-col gap-5 px-8 py-[30px] ${i % 2 === 0 ? "bg-mist-light" : "bg-mist"}`}
-						>
-							<p className="type-mono uppercase text-moss-ink">
-								{project.status === "published" ? m.case_status_published() : m.case_status_soon()}
-							</p>
-							<div className="relative h-56 overflow-hidden">
-								<img
-									src={project.card}
-									alt=""
-									className="size-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-								/>
-								<div aria-hidden className="absolute inset-0 bg-linear-to-r from-lavender/55 to-lavender/0" />
-							</div>
-							<p className="text-[28px] leading-[1.2] font-medium text-ink">{project.title()}</p>
-							<div className="mt-auto flex items-center justify-between gap-2.5">
-								<p className="type-small text-marine">{project.tagline()}</p>
-								<NavigationButton direction="right" />
-							</div>
-						</Link>
+						{(() => {
+							const className = `flex h-full flex-col gap-5 px-8 py-[30px] bg-mist`;
+							const content = (
+								<>
+									<p className="type-mono uppercase text-moss-ink">
+										{project.status === "published" ? m.case_status_published() : m.case_status_soon()}
+									</p>
+									<div className="relative h-56 overflow-hidden">
+										<img
+											src={project.card}
+											alt=""
+											className="size-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+										/>
+										<div aria-hidden className="absolute inset-0 bg-linear-to-r from-lavender/55 to-lavender/0" />
+									</div>
+									<p className="text-[28px] leading-[1.2] font-medium text-ink">{project.title()}</p>
+									<div className="mt-auto flex items-center justify-between gap-2.5">
+										<p className="type-small text-marine">{project.tagline()}</p>
+										{project.route && <NavigationButton direction="right" />}
+									</div>
+								</>
+							);
+							return project.route ? (
+								<Link to={project.route} className={`group ${className}`}>
+									{content}
+								</Link>
+							) : (
+								<div className={className}>{content}</div>
+							);
+						})()}
 					</li>
 				))}
 			</ul>
