@@ -6,8 +6,13 @@ import { Identity } from "#/components/Identity";
 import { SectionLabel } from "#/components/SectionLabel";
 import { site } from "#/content/site";
 import { m } from "#/paraglide/messages";
+import { pageTitle, seo } from "#/lib/seo";
 
-export const Route = createFileRoute("/_site/contact")({ component: Contact });
+export const Route = createFileRoute("/_site/contact")({
+	head: () =>
+		seo({ title: pageTitle(m.nav_contact()), description: m.seo_contact_description(), path: "/contact" }),
+	component: Contact,
+});
 
 function Contact() {
 	return (
@@ -51,7 +56,7 @@ function Contact() {
 						<span className="block">{site.logo[1]}</span>
 					</p>
 					<ul className="flex items-center gap-6">
-						<li><FooterLink href={site.github} icon={githubIcon} className="text-lavender">{m.footer_github()}</FooterLink></li>
+						{site.github && <li><FooterLink href={site.github} icon={githubIcon} className="text-lavender">{m.footer_github()}</FooterLink></li>}
 						<li><FooterLink href={site.linkedin} icon={linkedinIcon} className="text-lavender">{m.footer_linkedin()}</FooterLink></li>
 					</ul>
 				</div>

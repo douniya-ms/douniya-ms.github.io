@@ -6,19 +6,21 @@ import { OtherProjects } from "#/components/case/OtherProjects";
 import { Stats } from "#/components/case/Stats";
 import type { Aside, Block, CaseChapter, CaseCopy } from "#/components/case/types";
 import type { ProjectCard } from "#/content/projects";
-import { site } from "#/content/site";
+import { pageTitle, seo } from "#/lib/seo";
 import { getLocale } from "#/paraglide/runtime";
 
 type Copies = Record<ReturnType<typeof getLocale>, CaseCopy>;
 
 /** Route `head` for a case study: tab title + description in the current language. */
 export function caseHead(project: ProjectCard, copies: Copies) {
-	return () => ({
-		meta: [
-			{ title: `${project.title()} · ${site.firstName} ${site.lastName}` },
-			{ name: "description", content: copies[getLocale()].intro },
-		],
-	});
+	return () =>
+		seo({
+			title: pageTitle(project.title()),
+			description: copies[getLocale()].intro,
+			path: project.route ?? "/work",
+			image: `/og/${project.slug}.jpg`,
+			type: "article",
+		});
 }
 
 /** A whole case study, rendered from its copy: hero, chapters, other projects. */

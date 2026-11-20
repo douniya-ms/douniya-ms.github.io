@@ -36,7 +36,7 @@ export function CaseFooter() {
 				{/* Mobile: the identity row closes the moss band */}
 				<div className="flex items-center gap-6 lg:hidden">
 					<Logo className="type-logo-sm mr-auto" />
-					<FooterLink href={site.github} icon={githubIcon} className="text-lavender">{m.footer_github()}</FooterLink>
+					{site.github && <FooterLink href={site.github} icon={githubIcon} className="text-lavender">{m.footer_github()}</FooterLink>}
 					<FooterLink href={site.linkedin} icon={linkedinIcon} className="text-lavender">{m.footer_linkedin()}</FooterLink>
 				</div>
 			</section>
@@ -44,7 +44,7 @@ export function CaseFooter() {
 			{/* Desktop: identity footer on lavender */}
 			<footer className="hidden items-center justify-between px-(--gutter) py-8 lg:flex">
 				<ul className="flex items-center gap-6">
-					<li><FooterLink href={site.github} icon={githubIcon}>{m.footer_github()}</FooterLink></li>
+					{site.github && <li><FooterLink href={site.github} icon={githubIcon}>{m.footer_github()}</FooterLink></li>}
 					<li><FooterLink href={site.linkedin} icon={linkedinIcon}>{m.footer_linkedin()}</FooterLink></li>
 				</ul>
 				<div className="flex items-center gap-16">

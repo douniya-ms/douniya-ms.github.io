@@ -25,6 +25,15 @@ jobs:
           cache: true
           install: false
       - run: pnpm install --frozen-lockfile
+      # The public address, used for canonical links, social previews and the sitemap.
+      # Default: https://<owner>.github.io. For a custom domain, set a repository
+      # variable named SITE_URL (Settings → Secrets and variables → Actions → Variables).
+      - name: Set site address
+        env:
+          CUSTOM_URL: ${{ vars.SITE_URL }}
+        run: |
+          OWNER="${GITHUB_REPOSITORY_OWNER,,}"
+          echo "VITE_SITE_URL=${CUSTOM_URL:-https://$OWNER.github.io}" >> "$GITHUB_ENV"
       - run: pnpm build
       - run: cp dist/client/index.html dist/client/404.html
       - uses: actions/upload-pages-artifact@v5

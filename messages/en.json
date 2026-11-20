@@ -67,5 +67,9 @@
   "project_road_title": "Road Risk",
   "project_road_tagline": "Predicting the severity of road accidents",
   "project_road_summary": "My first solo AI project: a classifier trained on more than 4 million real accident records to flag the rare accidents that turn severe.",
-  "project_road_results": "From a 99%-accurate model that missed almost every severe accident to one that catches 40% of them (7% precision): a hard-won lesson in choosing the right metric."
+  "project_road_results": "From a 99%-accurate model that missed almost every severe accident to one that catches 40% of them (7% precision): a hard-won lesson in choosing the right metric.",
+  "seo_home_title": "Douniya Maayoussi · Junior AI & Data Engineer",
+  "seo_home_description": "Douniya Maayoussi, junior AI & data engineer. Case studies in machine learning, LLM-powered tools and connected health, from the problem to the lessons learned.",
+  "seo_work_description": "Selected projects by Douniya Maayoussi: an explainable ATS built at SEWS Kénitra, an AI bracelet for asthma monitoring and a road-accident severity model.",
+  "seo_contact_description": "Get in touch with Douniya Maayoussi, junior AI & data engineer, about opportunities, questions or collaborations."
 }

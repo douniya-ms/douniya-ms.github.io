@@ -67,5 +67,9 @@
   "project_road_title": "Road Risk",
   "project_road_tagline": "Prédire la gravité des accidents de la route",
   "project_road_summary": "Mon premier projet individuel en IA : un classifieur entraîné sur plus de 4 millions d’accidents réels pour repérer les rares accidents qui deviennent graves.",
-  "project_road_results": "D’un modèle précis à 99 % qui ratait presque tous les accidents graves à un modèle qui en détecte 40 % (7 % de précision) : une leçon durement apprise sur le choix de la bonne métrique."
+  "project_road_results": "D’un modèle précis à 99 % qui ratait presque tous les accidents graves à un modèle qui en détecte 40 % (7 % de précision) : une leçon durement apprise sur le choix de la bonne métrique.",
+  "seo_home_title": "Douniya Maayoussi · Ingénieure IA & données junior",
+  "seo_home_description": "Douniya Maayoussi, ingénieure IA & données junior. Études de cas en machine learning, outils basés sur les LLM et santé connectée, du problème aux leçons apprises.",
+  "seo_work_description": "Projets de Douniya Maayoussi : un ATS explicable développé chez SEWS Kénitra, un bracelet IA de suivi de l’asthme et un modèle de gravité des accidents de la route.",
+  "seo_contact_description": "Contactez Douniya Maayoussi, ingénieure IA & données junior, pour une opportunité, une question ou une collaboration."
 }

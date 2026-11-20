@@ -3,7 +3,10 @@ import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 import { TanStackDevtools } from '@tanstack/react-devtools'
 
 import { WorkNavigationProvider } from '#/components/WorkNavigation'
+import { AnalyticsScript, PageviewTracker } from '#/components/Analytics'
 import { getLocale } from '#/paraglide/runtime'
+import { m } from '#/paraglide/messages'
+import { seo } from '#/lib/seo'
 
 import appCss from '../styles.css?url'
 
@@ -25,9 +28,11 @@ export const Route = createRootRoute({
         name: 'viewport',
         content: 'width=device-width, initial-scale=1',
       },
-      {
-        title: 'Douniya Maayoussi · Junior AI & Data Engineer',
-      },
+      { name: 'theme-color', content: '#6d8f63' },
+      // Google Search Console ownership check. Keep it: removing it unverifies the site.
+      { name: 'google-site-verification', content: 'BDg6Y6viLHVEQNAeBaxaZW1stmSs8jVAk7ggRwrqBkA' },
+      // Defaults; each page sets its own title, description and URLs
+      ...seo({ title: m.seo_home_title(), description: m.seo_home_description(), path: '/' }).meta,
     ],
     links: [
       {
@@ -62,10 +67,12 @@ function RootDocument({ children }: { children: React.ReactNode }) {
     <html lang={getLocale()}>
       <head>
         <HeadContent />
+        <AnalyticsScript />
       </head>
       <body>
         {/* Above every layout, so the Work page remembers its project across pages */}
         <WorkNavigationProvider>{children}</WorkNavigationProvider>
+        <PageviewTracker />
         <TanStackDevtools
           config={{
             position: 'bottom-right',

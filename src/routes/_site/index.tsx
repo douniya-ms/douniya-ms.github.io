@@ -4,9 +4,13 @@ import { Chip } from "#/components/Chip";
 import { SectionLabel } from "#/components/SectionLabel";
 import { site } from "#/content/site";
 import { m } from "#/paraglide/messages";
+import { seo } from "#/lib/seo";
 import { Identity } from "#/components/Identity";
 
-export const Route = createFileRoute("/_site/")({ component: About });
+export const Route = createFileRoute("/_site/")({
+	head: () => seo({ title: m.seo_home_title(), description: m.seo_home_description(), path: "/" }),
+	component: About,
+});
 
 function About() {
     return (
@@ -95,9 +99,11 @@ function About() {
                             <span className="block">{site.logo[1]}</span>
                         </p>
                         <div className="flex items-center gap-4">
-                            <a href={site.github} className="type-mono text-lavender">
-                                GitHub <span className="text-marine">↗</span>
-                            </a>
+                            {site.github && (
+                                <a href={site.github} className="type-mono text-lavender">
+                                    GitHub <span className="text-marine">↗</span>
+                                </a>
+                            )}
                             <a href={site.linkedin} className="type-mono text-lavender">
                                 LinkedIn <span className="text-marine">↗</span>
                             </a>

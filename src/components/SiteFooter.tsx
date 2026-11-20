@@ -14,7 +14,7 @@ export function SiteFooter() {
 	return (
 		<footer className="site-footer relative z-30 hidden h-[105px] grid-cols-6 items-center lg:grid">
 			<ul className="col-span-3 flex items-center gap-6 pl-20">
-				<li><FooterLink href={site.github} icon={githubIcon}>{m.footer_github()}</FooterLink></li>
+				{site.github && <li><FooterLink href={site.github} icon={githubIcon}>{m.footer_github()}</FooterLink></li>}
 				<li><FooterLink href={site.linkedin} icon={linkedinIcon}>{m.footer_linkedin()}</FooterLink></li>
 				{!onContact && (
 					<li><FooterLink href={`mailto:${site.email}`}>{m.footer_hello()}</FooterLink></li>

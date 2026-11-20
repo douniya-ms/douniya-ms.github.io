@@ -14,3 +14,4 @@ todos.json
 
 # Local backups made while building the site
 _backup-before-work-page/
+__pycache__/

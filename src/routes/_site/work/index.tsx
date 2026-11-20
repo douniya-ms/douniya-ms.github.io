@@ -11,8 +11,12 @@ import { SectionLabel } from "#/components/SectionLabel";
 import { useWorkNavigation } from "#/components/WorkNavigation";
 import { site } from "#/content/site";
 import { m } from "#/paraglide/messages";
+import { pageTitle, seo } from "#/lib/seo";
 
-export const Route = createFileRoute("/_site/work/")({ component: Work });
+export const Route = createFileRoute("/_site/work/")({
+	head: () => seo({ title: pageTitle(m.nav_work()), description: m.seo_work_description(), path: "/work" }),
+	component: Work,
+});
 
 const pad = (n: number) => String(n).padStart(2, "0");
 
@@ -115,11 +119,13 @@ function Work() {
 					<span className="block">{site.logo[1]}</span>
 				</p>
 				<ul className="mr-auto flex items-center gap-4">
-					<li>
-						<FooterLink href={site.github} icon={githubIcon} className="text-lavender">
-							{m.footer_github()}
-						</FooterLink>
-					</li>
+					{site.github && (
+						<li>
+							<FooterLink href={site.github} icon={githubIcon} className="text-lavender">
+								{m.footer_github()}
+							</FooterLink>
+						</li>
+					)}
 					<li>
 						<FooterLink href={site.linkedin} icon={linkedinIcon} className="text-lavender">
 							{m.footer_linkedin()}

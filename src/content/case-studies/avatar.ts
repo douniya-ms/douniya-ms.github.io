@@ -11,7 +11,7 @@ const en: CaseCopy = {
 	facts: [
 		{ label: "Focus", value: "IoT | AI | Cloud Computing" },
 		{ label: "My role", value: "AI model (Fuzzy C-Means)" },
-		{ label: "Collaboration", value: "Team project" },
+		{ label: "Collaboration", value: "Team of 5" },
 	],
 	chapters: [
 		{
@@ -93,7 +93,7 @@ const en: CaseCopy = {
 				{
 					kind: "text",
 					paragraphs: [
-						"AVATAR was a team project. We started by analysing the needs together, then each of us took the part she knew best.",
+						"AVATAR was a team project: five of us. We started by analysing the needs together, then each of us took the part she knew best.",
 						"Mine was the AI model: using Fuzzy C-Means, with Python and scikit-learn, to classify physiological readings by risk level. Then we came back together to integrate every piece into one system.",
 					],
 				},
@@ -177,7 +177,7 @@ const fr: CaseCopy = {
 	facts: [
 		{ label: "Domaine", value: "IoT | IA | Cloud Computing" },
 		{ label: "Mon rôle", value: "Modèle d’IA (Fuzzy C-Means)" },
-		{ label: "Collaboration", value: "Projet d’équipe" },
+		{ label: "Collaboration", value: "Équipe de 5" },
 	],
 	chapters: [
 		{
@@ -259,7 +259,7 @@ const fr: CaseCopy = {
 				{
 					kind: "text",
 					paragraphs: [
-						"Ce projet a été réalisé en équipe. On a commencé par analyser les besoins ensemble, puis chacune a travaillé sur la partie qu’elle maîtrisait le mieux.",
+						"Ce projet a été réalisé en équipe de cinq. On a commencé par analyser les besoins ensemble, puis chacune a travaillé sur la partie qu’elle maîtrisait le mieux.",
 						"Pour ma part, je me suis occupée du modèle d’IA : l’algorithme Fuzzy C-Means, avec Python et scikit-learn, pour classer les données physiologiques selon le niveau de risque. On a ensuite travaillé ensemble pour intégrer toutes les parties du système.",
 					],
 				},

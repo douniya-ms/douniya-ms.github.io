@@ -38,7 +38,9 @@ Change the files, then push to `main`. The site updates by itself in a few minut
 | The order or the list of projects on the Work page, their tags and images | `src/content/projects.ts` |
 | A case study (the long project page) | `src/content/case-studies/<project>.ts` |
 | Colors, fonts, spacing | `src/styles.css` (the `@theme` block at the top) |
-| The browser tab title | `src/routes/__root.tsx` (`title`) |
+| Page titles and descriptions (search results, link previews) | `seo_…` keys in `messages/en.json` / `fr.json` |
+| Link-preview images (LinkedIn, WhatsApp…) | `public/og/` (1200 × 630 JPG) |
+| The site icon | `public/favicon.ico` and the other icons in `public/` |
 
 ### Texts and translations
 
@@ -94,6 +96,16 @@ The About and Contact pages use an abstract placeholder image (`src/assets/abstr
 5. In `vite.config.ts`, add `'/fr/work/<slug>'` to the `pages` list, so the French page is generated too.
 
 Without a case study, leave out `route` and `results` in `projects.ts`: the Work page then shows the project as "Coming soon".
+
+### Search engines and link previews
+
+Every page sets its own title, description, canonical link, English/French alternates and link-preview card (`src/lib/seo.ts`). Each case study uses its own preview image, `public/og/<slug>.jpg`; make one for every new project.
+
+`sitemap.xml` and `robots.txt` are generated at each build from the pages that exist, so nothing to maintain.
+
+The site address is `https://douniya-ms.github.io`, worked out from the repository owner. With a custom domain later: add it under **Settings → Pages → Custom domain**, then add a repository variable **`SITE_URL`** (e.g. `https://douniya.dev`) under **Settings → Secrets and variables → Actions → Variables**, so links and the sitemap use it.
+
+Once the site is live, submit `https://douniya-ms.github.io/sitemap.xml` in [Google Search Console](https://search.google.com/search-console) to get indexed faster.
 
 ---
 
