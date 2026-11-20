@@ -6,7 +6,7 @@ export const site = {
   // GitHub links are hidden everywhere while this is empty.
   // To show them again, put the profile URL back, e.g. 'https://github.com/douniya-ms'.
   github: '',
-  linkedin: 'https://www.linkedin.com/',
+  linkedin: 'https://www.linkedin.com/in/douniya-ms/',
   email: 'douniyamaayoussi@gmail.com',
   phone: '+212 6 55 32 39 02',
   phoneHref: 'tel:+212655323902'
